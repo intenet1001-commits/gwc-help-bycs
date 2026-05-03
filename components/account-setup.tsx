@@ -64,6 +64,9 @@ export function AccountSetup() {
           <p className="text-xs text-muted-foreground">
             계정을 입력하면 가이드 전체의 명령어에 실제 이메일과 경로가 자동으로 채워집니다.
           </p>
+          <p className="text-xs text-muted-foreground/70">
+            처음이라면 <strong>이메일만</strong> 입력하면 됩니다 — GCP 프로젝트 ID는 자동 생성됩니다.
+          </p>
 
           {/* ── 기본 계정 ── */}
           <div className="space-y-3">

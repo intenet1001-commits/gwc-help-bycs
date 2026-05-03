@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, CheckCircle2, Terminal, Wrench } from "lucide-react"
 import { AccountSetup } from "@/components/account-setup"
+import { HomeQuickStart } from "@/components/home-quick-start"
 
 const steps = [
   {
@@ -81,6 +82,9 @@ export default function Home() {
           </Button>
         </div>
       </section>
+
+      {/* Situation selector */}
+      <HomeQuickStart />
 
       {/* Account setup */}
       <AccountSetup />

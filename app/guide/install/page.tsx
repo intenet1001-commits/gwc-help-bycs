@@ -7,6 +7,7 @@ import { StepFooter } from "@/components/step-footer"
 import { OSSection } from "@/components/os-section"
 import { Info, ExternalLink } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
+import { GuideSkipBanner } from "@/components/guide-skip-banner"
 
 export default function InstallPage() {
   return (
@@ -19,6 +20,8 @@ export default function InstallPage() {
           우측 상단의 OS 토글로 Mac/Windows 가이드를 전환하세요.
         </p>
       </header>
+
+      <GuideSkipBanner />
 
       {/* Node.js check */}
       <section className="space-y-4">
