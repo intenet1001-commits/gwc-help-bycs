@@ -43,7 +43,7 @@ export default function CredentialsPage() {
   return (
     <article className="space-y-8">
       <header className="space-y-2">
-        <Badge variant="secondary">STEP 2 / 4</Badge>
+        <Badge variant="secondary">STEP 3 / 4</Badge>
         <h1 className="text-2xl font-bold">OAuth 크리덴셜 받기</h1>
         <p className="text-muted-foreground text-sm">
           이 단계만 브라우저가 필요합니다. 두 개의 링크에서 총 <strong>10번 클릭</strong>으로 끝납니다.
@@ -132,8 +132,8 @@ export default function CredentialsPage() {
       </div>
 
       <StepFooter
-        prev={{ href: "/guide/gcp-project", label: "1. GCP 세팅" }}
-        next={{ href: "/guide/install", label: "3. gws 설치 & 인증" }}
+        prev={{ href: "/guide/gcp-project", label: "2. GCP 세팅" }}
+        next={{ href: "/guide/auth-setup", label: "4. 인증 설정" }}
       />
     </article>
   )

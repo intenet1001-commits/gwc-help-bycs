@@ -49,7 +49,7 @@ export function HomeQuickStart() {
             gws를 한 번도 설치한 적 없어요. 아래에 이메일을 입력한 뒤 Step 1부터 시작하세요.
           </p>
           <Button asChild size="sm" className="w-full">
-            <Link href="/guide/gcp-project" className="flex items-center justify-center gap-1.5">
+            <Link href="/guide/install" className="flex items-center justify-center gap-1.5">
               Step 1부터 시작 <ArrowRight className="size-3" />
             </Link>
           </Button>

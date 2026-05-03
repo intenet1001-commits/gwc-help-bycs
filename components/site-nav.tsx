@@ -7,9 +7,9 @@ import { useOS } from "@/lib/os-context"
 import { Monitor, Apple } from "lucide-react"
 
 const steps = [
-  { href: "/guide/gcp-project", label: "1. GCP & API", short: "1" },
-  { href: "/guide/credentials", label: "2. 크리덴셜", short: "2" },
-  { href: "/guide/install", label: "3. 설치", short: "3" },
+  { href: "/guide/install", label: "1. 설치", short: "1" },
+  { href: "/guide/gcp-project", label: "2. GCP & API", short: "2" },
+  { href: "/guide/credentials", label: "3. 크리덴셜", short: "3" },
   { href: "/guide/auth-setup", label: "4. 인증", short: "4" },
   { href: "/guide/multi-account", label: "+ 계정 추가", short: "+" },
   { href: "/guide/commands", label: "명령어", short: "🗒" },
