@@ -9,7 +9,7 @@ import { StepFooter } from "@/components/step-footer"
 import { PersonalizedCommand } from "@/components/personalized-command"
 import { GuideSkipBanner } from "@/components/guide-skip-banner"
 import { useAccounts } from "@/lib/accounts-context"
-import { Info, Terminal, ExternalLink } from "lucide-react"
+import { Info, ExternalLink } from "lucide-react"
 
 export default function GcpProjectPage() {
   const { defaultAccount } = useAccounts()
@@ -25,34 +25,6 @@ export default function GcpProjectPage() {
       </header>
 
       <GuideSkipBanner />
-
-      {/* gcloud 설치 확인 */}
-      <section className="space-y-4">
-        <h2 className="text-base font-semibold flex items-center gap-2">
-          <Terminal className="size-4" />
-          gcloud 설치 확인
-        </h2>
-        <CodeBlock code="gcloud --version" lang="bash" />
-        <p className="text-xs text-muted-foreground">
-          버전이 나오면 이미 설치된 것입니다. 없으면 아래에서 설치하세요.
-        </p>
-        <div className="grid gap-3 sm:grid-cols-2">
-          <div className="space-y-1">
-            <p className="text-xs font-medium text-muted-foreground">Mac (Homebrew)</p>
-            <CodeBlock code="brew install --cask google-cloud-sdk" lang="bash" />
-          </div>
-          <div className="space-y-1">
-            <p className="text-xs font-medium text-muted-foreground">Windows (winget)</p>
-            <CodeBlock code="winget install Google.CloudSDK" lang="powershell" />
-          </div>
-        </div>
-        <Alert>
-          <Info className="size-4" />
-          <AlertDescription className="text-xs">
-            설치 후 터미널을 재시작하거나 Mac은 <code className="mx-1 rounded bg-muted px-1">source ~/.zshrc</code>를 실행하세요.
-          </AlertDescription>
-        </Alert>
-      </section>
 
       {/* gcloud 로그인 */}
       <section className="space-y-4">

@@ -143,15 +143,51 @@ export default function InstallPage() {
         />
       </section>
 
-      {/* Verify */}
+      {/* gcloud install */}
       <section className="space-y-4">
         <h2 className="text-base font-semibold flex items-center gap-2">
           <span className="flex size-6 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">4</span>
+          gcloud CLI 설치
+        </h2>
+        <p className="text-sm text-muted-foreground">
+          GCP 프로젝트 설정에 필요합니다. 먼저 설치 여부를 확인합니다.
+        </p>
+        <CodeBlock code="gcloud --version" lang="bash" />
+        <p className="text-xs text-muted-foreground">
+          버전이 나오면 이미 설치된 것입니다. 없으면 아래에서 설치하세요.
+        </p>
+        <OSSection
+          mac={
+            <div className="space-y-2">
+              <CodeBlock code="brew install --cask google-cloud-sdk" lang="bash" />
+              <p className="text-xs text-muted-foreground">
+                설치 후 <code className="rounded bg-muted px-1">source ~/.zshrc</code> 또는 터미널을 재시작하세요.
+              </p>
+            </div>
+          }
+          windows={
+            <div className="space-y-2">
+              <CodeBlock code="winget install Google.CloudSDK" lang="powershell" />
+              <Alert>
+                <Info className="size-4" />
+                <AlertDescription className="text-xs">
+                  설치 후 <strong>새 PowerShell 창</strong>을 열어야 PATH가 적용됩니다.
+                </AlertDescription>
+              </Alert>
+            </div>
+          }
+        />
+      </section>
+
+      {/* Verify */}
+      <section className="space-y-4">
+        <h2 className="text-base font-semibold flex items-center gap-2">
+          <span className="flex size-6 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">5</span>
           설치 확인
         </h2>
-        <CodeBlock code="gws --version" lang="bash" />
+        <CodeBlock code={`gws --version\ngcloud --version`} lang="bash" />
         <p className="text-xs text-muted-foreground">
-          출력 예시:
+          gws 출력 예시:
         </p>
         <CodeBlock
           code={`gws 0.22.5
@@ -168,7 +204,7 @@ This is not an officially supported Google product.`}
       </section>
 
       <div className="rounded-lg border bg-green-50 dark:bg-green-950/20 p-4 text-sm text-green-700 dark:text-green-400">
-        ✅ gws v0.22.5 설치 완료! 다음 단계로 Google 계정 인증을 진행합니다.
+        ✅ gws + gcloud CLI 설치 완료! 다음 단계에서 GCP 프로젝트를 설정합니다.
       </div>
 
       <StepFooter
