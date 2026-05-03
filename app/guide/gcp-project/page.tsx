@@ -1,16 +1,19 @@
+"use client"
+
 import Link from "next/link"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { CodeBlock } from "@/components/code-block"
 import { StepFooter } from "@/components/step-footer"
+import { PersonalizedCommand } from "@/components/personalized-command"
+import { GuideSkipBanner } from "@/components/guide-skip-banner"
+import { useAccounts } from "@/lib/accounts-context"
 import { Info, Terminal, ExternalLink } from "lucide-react"
 
-export const metadata = {
-  title: "1. GCP 프로젝트 & API 세팅 | gws 설치 가이드",
-}
-
 export default function GcpProjectPage() {
+  const { defaultAccount } = useAccounts()
+
   return (
     <article className="space-y-8">
       <header className="space-y-2">
@@ -20,6 +23,8 @@ export default function GcpProjectPage() {
           gcloud CLI로 터미널에서 전부 처리합니다. 브라우저 없이 복붙만 하면 됩니다.
         </p>
       </header>
+
+      <GuideSkipBanner />
 
       {/* gcloud 설치 확인 */}
       <section className="space-y-4">
@@ -67,15 +72,38 @@ export default function GcpProjectPage() {
           <span className="flex size-6 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">2</span>
           프로젝트 생성
         </h2>
-        <p className="text-sm text-muted-foreground">
-          <code className="rounded bg-muted px-1 text-xs">MY-GWS-PROJECT</code>를 원하는 ID로 바꾸세요 (소문자, 하이픈만 가능).
-        </p>
-        <CodeBlock
-          code={`gcloud projects create MY-GWS-PROJECT --name="GWS CLI"
+        {defaultAccount ? (
+          <>
+            <Alert>
+              <Info className="size-4" />
+              <AlertDescription className="text-xs">
+                홈에서 입력한 이메일 기준으로 프로젝트 ID <code className="rounded bg-muted px-1">{defaultAccount.projectId}</code>가 자동 설정되었습니다.
+                변경하려면{" "}
+                <Link href="/" className="underline underline-offset-2">홈 페이지</Link>
+                에서 GCP 프로젝트 ID를 수정하세요.
+              </AlertDescription>
+            </Alert>
+            <PersonalizedCommand
+              accountIndex="default"
+              template={`gcloud projects create {{PROJECT_ID}} --name="GWS CLI"
+gcloud config set project {{PROJECT_ID}}`}
+              filename="터미널에 순서대로 실행"
+            />
+          </>
+        ) : (
+          <>
+            <p className="text-sm text-muted-foreground">
+              <code className="rounded bg-muted px-1 text-xs">MY-GWS-PROJECT</code>를 원하는 ID로 바꾸세요 (소문자, 하이픈만 가능).
+              홈에서 이메일을 입력하면 자동으로 채워집니다.
+            </p>
+            <CodeBlock
+              code={`gcloud projects create MY-GWS-PROJECT --name="GWS CLI"
 gcloud config set project MY-GWS-PROJECT`}
-          lang="bash"
-          filename="터미널에 순서대로 실행"
-        />
+              lang="bash"
+              filename="터미널에 순서대로 실행"
+            />
+          </>
+        )}
         <p className="text-xs text-muted-foreground">
           프로젝트 ID는 나중에 gws auth setup에 필요합니다. 메모해두세요.
         </p>
@@ -142,7 +170,7 @@ gcloud services list --enabled --filter="NAME:(gmail OR drive OR calendar)"`}
         />
         <Card className="bg-muted/40">
           <CardContent className="p-3 font-mono text-xs space-y-0.5 text-muted-foreground">
-            <p>MY-GWS-PROJECT</p>
+            <p>{defaultAccount?.projectId ?? "MY-GWS-PROJECT"}</p>
             <p>NAME: calendar-json.googleapis.com</p>
             <p>NAME: drive.googleapis.com</p>
             <p>NAME: gmail.googleapis.com</p>

@@ -1,40 +1,45 @@
+"use client"
+
 import Link from "next/link"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { StepFooter } from "@/components/step-footer"
-import { Info, ArrowRight, ExternalLink, MousePointerClick } from "lucide-react"
-
-export const metadata = {
-  title: "2. OAuth 크리덴셜 받기 | gws 설치 가이드",
-}
-
-const consoleSteps = [
-  {
-    url: "https://console.cloud.google.com/apis/credentials/consent",
-    label: "OAuth 동의 화면 설정",
-    shortcut: "바로가기",
-    steps: [
-      "User Type: 외부(External) 선택 → 만들기",
-      "앱 이름 입력 (예: gws-cli) + 지원 이메일 입력",
-      "저장 후 계속 → 저장 후 계속 → 저장 후 계속",
-      "테스트 사용자: +ADD USERS → 본인 이메일 추가 → 저장",
-    ],
-  },
-  {
-    url: "https://console.cloud.google.com/apis/credentials",
-    label: "OAuth 클라이언트 ID 만들기",
-    shortcut: "바로가기",
-    steps: [
-      "+ 사용자 인증 정보 만들기 → OAuth 클라이언트 ID",
-      "애플리케이션 유형: 데스크톱 앱 (⚠️ 웹 앱 아님)",
-      "이름 입력 → 만들기",
-      "팝업에서 JSON 다운로드 클릭",
-    ],
-  },
-]
+import { GuideSkipBanner } from "@/components/guide-skip-banner"
+import { useAccounts } from "@/lib/accounts-context"
+import { Info, ArrowRight, ExternalLink } from "lucide-react"
 
 export default function CredentialsPage() {
+  const { defaultAccount } = useAccounts()
+  const projectId = defaultAccount?.projectId
+
+  const consoleSteps = [
+    {
+      url: projectId
+        ? `https://console.cloud.google.com/apis/credentials/consent?project=${projectId}`
+        : "https://console.cloud.google.com/apis/credentials/consent",
+      label: "OAuth 동의 화면 설정",
+      steps: [
+        "User Type: 외부(External) 선택 → 만들기",
+        "앱 이름 입력 (예: gws-cli) + 지원 이메일 입력",
+        "저장 후 계속 → 저장 후 계속 → 저장 후 계속",
+        "테스트 사용자: +ADD USERS → 본인 이메일 추가 → 저장",
+      ],
+    },
+    {
+      url: projectId
+        ? `https://console.cloud.google.com/apis/credentials?project=${projectId}`
+        : "https://console.cloud.google.com/apis/credentials",
+      label: "OAuth 클라이언트 ID 만들기",
+      steps: [
+        "+ 사용자 인증 정보 만들기 → OAuth 클라이언트 ID",
+        "애플리케이션 유형: 데스크톱 앱 (⚠️ 웹 앱 아님)",
+        "이름 입력 → 만들기",
+        "팝업에서 JSON 다운로드 클릭",
+      ],
+    },
+  ]
+
   return (
     <article className="space-y-8">
       <header className="space-y-2">
@@ -44,6 +49,18 @@ export default function CredentialsPage() {
           이 단계만 브라우저가 필요합니다. 두 개의 링크에서 총 <strong>10번 클릭</strong>으로 끝납니다.
         </p>
       </header>
+
+      <GuideSkipBanner />
+
+      {projectId && (
+        <Alert>
+          <Info className="size-4" />
+          <AlertDescription className="text-xs">
+            아래 <strong>바로가기</strong> 버튼이 프로젝트{" "}
+            <code className="rounded bg-muted px-1">{projectId}</code>로 바로 연결됩니다.
+          </AlertDescription>
+        </Alert>
+      )}
 
       <div className="space-y-4">
         {consoleSteps.map((section, idx) => (
@@ -62,7 +79,7 @@ export default function CredentialsPage() {
                 className="flex items-center gap-1 rounded-md bg-blue-600 px-3 py-1 text-xs font-medium text-white hover:bg-blue-700 transition-colors"
               >
                 <ExternalLink className="size-3" />
-                {section.shortcut}
+                바로가기{projectId ? ` (${projectId})` : ""}
               </a>
             </div>
             <CardContent className="p-4">
