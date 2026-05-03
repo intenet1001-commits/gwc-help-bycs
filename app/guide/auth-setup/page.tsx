@@ -263,7 +263,7 @@ gcloud auth list`}
       {/* 다음 단계 */}
       <section className="space-y-3">
         <h2 className="text-base font-semibold">이제 gws를 사용할 수 있습니다</h2>
-        <CodeBlock code="gws calendar list" lang="bash" filename="동작 확인 명령어" />
+        <CodeBlock code="gws calendar +agenda" lang="bash" filename="동작 확인 명령어" />
         <p className="text-xs text-muted-foreground">
           캘린더 목록이 출력되면 완전히 설정된 것입니다.
         </p>

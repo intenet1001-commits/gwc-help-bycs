@@ -35,7 +35,7 @@ export function PersonalizedCommand({
       ? accounts.find((a) => !a.isDefault)
       : accounts[accountIndex]
 
-  const slug = account ? account.email.split("@")[0].replace(/[^a-z0-9]/gi, "").toLowerCase() : "YOUR_ACCOUNT"
+  const slug = account?.suffix ?? "YOUR_ACCOUNT"
 
   const code = template
     .replace(/\{\{EMAIL\}\}/g, account?.email ?? "your@gmail.com")

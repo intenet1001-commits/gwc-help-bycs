@@ -13,9 +13,10 @@ const commandGroups = [
     name: "Calendar (일정)",
     icon: "📅",
     commands: [
-      { cmd: "gws calendar list", desc: "캘린더 목록 조회" },
-      { cmd: "gws calendar events list --calendar-id=primary", desc: "기본 캘린더 이벤트 목록" },
-      { cmd: "gws calendar events get --calendar-id=primary --event-id=EVENT_ID", desc: "특정 이벤트 상세 조회" },
+      { cmd: "gws calendar +agenda", desc: "다가오는 일정 요약 (헬퍼)" },
+      { cmd: "gws calendar calendarList list", desc: "내 캘린더 목록 조회" },
+      { cmd: `gws calendar events list --params '{"calendarId": "primary"}'`, desc: "기본 캘린더 이벤트 목록" },
+      { cmd: `gws calendar events get --params '{"calendarId": "primary", "eventId": "EVENT_ID"}'`, desc: "특정 이벤트 상세 조회" },
     ],
   },
   {
@@ -23,34 +24,35 @@ const commandGroups = [
     icon: "📁",
     commands: [
       { cmd: "gws drive files list", desc: "내 드라이브 파일 목록" },
-      { cmd: "gws drive files get --file-id=FILE_ID", desc: "파일 메타데이터 조회" },
-      { cmd: "gws drive files download --file-id=FILE_ID --output=./file.txt", desc: "파일 다운로드" },
+      { cmd: `gws drive files list --params '{"q": "name contains \\'보고서\\'"}'`, desc: "이름으로 파일 검색" },
+      { cmd: `gws drive files get --params '{"fileId": "FILE_ID"}'`, desc: "파일 메타데이터 조회" },
     ],
   },
   {
     name: "Gmail (이메일)",
     icon: "✉️",
     commands: [
-      { cmd: "gws gmail messages list", desc: "받은 편지함 메시지 목록" },
-      { cmd: "gws gmail messages get --message-id=MSG_ID", desc: "특정 메일 내용 조회" },
-      { cmd: 'gws gmail messages send --to="user@example.com" --subject="안녕" --body="내용"', desc: "이메일 전송" },
+      { cmd: "gws gmail +triage", desc: "안읽은 메일 요약 (헬퍼)" },
+      { cmd: `gws gmail users messages list --params '{"userId": "me", "maxResults": 10}'`, desc: "받은 편지함 메시지 목록" },
+      { cmd: `gws gmail users messages get --params '{"userId": "me", "id": "MSG_ID"}'`, desc: "특정 메일 내용 조회" },
+      { cmd: `gws gmail +send --to="user@example.com" --subject="안녕" --body="내용"`, desc: "이메일 전송 (헬퍼)" },
     ],
   },
   {
     name: "Sheets (스프레드시트)",
     icon: "📊",
     commands: [
-      { cmd: "gws sheets spreadsheets get --spreadsheet-id=SHEET_ID", desc: "스프레드시트 정보 조회" },
-      { cmd: "gws sheets spreadsheets values get --spreadsheet-id=SHEET_ID --range=Sheet1!A1:Z100", desc: "셀 값 읽기" },
-      { cmd: "gws sheets spreadsheets values append --spreadsheet-id=SHEET_ID --range=Sheet1 --values='[[\"값1\",\"값2\"]]'", desc: "행 추가" },
+      { cmd: `gws sheets +read --id=SHEET_ID --range="Sheet1!A1:Z100"`, desc: "셀 값 읽기 (헬퍼)" },
+      { cmd: `gws sheets +append --id=SHEET_ID --range="Sheet1" --values='["값1","값2"]'`, desc: "행 추가 (헬퍼)" },
+      { cmd: `gws sheets spreadsheets get --params '{"spreadsheetId": "SHEET_ID"}'`, desc: "스프레드시트 정보 조회" },
     ],
   },
   {
     name: "Docs (문서)",
     icon: "📝",
     commands: [
-      { cmd: "gws docs documents get --document-id=DOC_ID", desc: "문서 내용 조회" },
-      { cmd: 'gws docs documents create --title="새 문서"', desc: "새 문서 만들기" },
+      { cmd: `gws docs documents get --params '{"documentId": "DOC_ID"}'`, desc: "문서 내용 조회" },
+      { cmd: `gws docs documents create --json '{"title": "새 문서"}'`, desc: "새 문서 만들기" },
     ],
   },
   {
@@ -58,7 +60,7 @@ const commandGroups = [
     icon: "✅",
     commands: [
       { cmd: "gws tasks tasklists list", desc: "할 일 목록 조회" },
-      { cmd: "gws tasks tasks list --tasklist=TASKLIST_ID", desc: "특정 목록의 할 일 항목" },
+      { cmd: `gws tasks tasks list --params '{"tasklist": "TASKLIST_ID"}'`, desc: "특정 목록의 할 일 항목" },
     ],
   },
 ]
@@ -131,7 +133,7 @@ export default function CommandsPage() {
           ].map((item) => (
             <div key={item.flag} className="space-y-1">
               <p className="text-xs text-muted-foreground">{item.desc}</p>
-              <CodeBlock code={`gws calendar list ${item.flag}`} lang="bash" />
+              <CodeBlock code={`gws calendar calendarList list ${item.flag}`} lang="bash" />
             </div>
           ))}
         </div>
