@@ -7,12 +7,14 @@ import { Card, CardContent } from "@/components/ui/card"
 import { CodeBlock } from "@/components/code-block"
 import { PersonalizedCommand } from "@/components/personalized-command"
 import { useAccounts } from "@/lib/accounts-context"
-import { Info, Users, Star, ExternalLink, AlertCircle, Terminal } from "lucide-react"
+import { Info, Users, Star, ExternalLink, AlertCircle, Terminal, CheckCircle2 } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 
 export default function MultiAccountPage() {
   const { accounts, defaultAccount } = useAccounts()
   const extraAccounts = accounts.filter((a) => !a.isDefault)
+  const newExtraAccounts = extraAccounts.filter((a) => !a.isExisting)
+  const existingExtraAccounts = extraAccounts.filter((a) => a.isExisting)
 
   return (
     <article className="space-y-8">
@@ -68,21 +70,63 @@ export default function MultiAccountPage() {
         </section>
       )}
 
-      {/* Step 1: GCP project for new account */}
-      <section className="space-y-4">
-        <h2 className="text-base font-semibold flex items-center gap-2">
-          <span className="flex size-6 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">1</span>
-          추가 계정으로 gcloud 로그인 + 프로젝트 생성
-        </h2>
-        <Alert>
-          <Info className="size-4" />
-          <AlertDescription className="text-xs">
-            기존 계정(기본)과 추가 계정은 <strong>각각 별도의 GCP 프로젝트</strong>가 필요합니다.
-          </AlertDescription>
-        </Alert>
-        <PersonalizedCommand
-          accountIndex="non-default"
-          template={`# 추가 계정으로 gcloud 로그인 (기존 계정 유지됨)
+      {/* 이미 설치됨 계정 스킵 안내 */}
+      {existingExtraAccounts.length > 0 && (
+        <section className="rounded-xl border border-green-300 bg-green-50 dark:border-green-800 dark:bg-green-950/20 p-4 space-y-2">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="size-4 text-green-600" />
+            <p className="text-sm font-semibold text-green-700 dark:text-green-400">이미 설치됨으로 표시된 추가 계정</p>
+          </div>
+          <div className="space-y-1">
+            {existingExtraAccounts.map((a) => (
+              <p key={a.id} className="text-xs text-green-700 dark:text-green-500">
+                <code className="rounded bg-green-100 dark:bg-green-900/40 px-1">{a.configDir}</code>
+                {" "}— {a.email}: 인증 완료됨, 아래 Steps 건너뜀
+              </p>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* 모든 추가 계정이 이미 완료된 경우 */}
+      {newExtraAccounts.length === 0 && extraAccounts.length > 0 && (
+        <div className="rounded-xl border bg-muted/40 p-4 text-sm text-muted-foreground">
+          모든 추가 계정이 이미 설치됨으로 표시되어 있습니다.
+        </div>
+      )}
+
+      {/* 계정별 Steps 1–4 */}
+      {newExtraAccounts.map((account, idx) => {
+        const accountArrayIndex = accounts.indexOf(account)
+        const isMultiple = newExtraAccounts.length > 1
+
+        return (
+          <div key={account.id} className="space-y-8">
+            {isMultiple && (
+              <div className="flex items-center gap-3">
+                <div className="h-px flex-1 bg-border" />
+                <Badge variant="secondary" className="text-xs shrink-0">
+                  추가 계정 {idx + 1} / {newExtraAccounts.length}: {account.email}
+                </Badge>
+                <div className="h-px flex-1 bg-border" />
+              </div>
+            )}
+
+            {/* Step 1 */}
+            <section className="space-y-4">
+              <h2 className="text-base font-semibold flex items-center gap-2">
+                <span className="flex size-6 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">1</span>
+                추가 계정으로 gcloud 로그인 + 프로젝트 생성
+              </h2>
+              <Alert>
+                <Info className="size-4" />
+                <AlertDescription className="text-xs">
+                  기존 계정(기본)과 추가 계정은 <strong>각각 별도의 GCP 프로젝트</strong>가 필요합니다.
+                </AlertDescription>
+              </Alert>
+              <PersonalizedCommand
+                accountIndex={accountArrayIndex}
+                template={`# 추가 계정으로 gcloud 로그인 (기존 계정 유지됨)
 gcloud auth login
 
 # 추가 계정을 활성 계정으로 전환
@@ -100,84 +144,81 @@ gcloud services enable \\
   sheets.googleapis.com \\
   docs.googleapis.com \\
   tasks.googleapis.com`}
-          filename="추가 계정 GCP 세팅 (CLI)"
-        />
-      </section>
+                filename="추가 계정 GCP 세팅 (CLI)"
+              />
+            </section>
 
-      {/* Step 2: OAuth consent + credentials (browser only) */}
-      <section className="space-y-4">
-        <h2 className="text-base font-semibold flex items-center gap-2">
-          <span className="flex size-6 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">2</span>
-          OAuth 동의화면 + 크리덴셜 (브라우저 필수)
-        </h2>
-        <div className="space-y-3">
-          {[
-            {
-              label: "OAuth 동의화면 설정",
-              urlBase: "https://console.cloud.google.com/apis/credentials/consent?project=",
-              steps: [
-                "External → Create",
-                "앱 이름 + 지원 이메일 입력 → Save and Continue (나머지 통과)",
-                "⚠️ Test users → + Add Users → 추가 계정 이메일 추가 (필수!)",
-              ],
-            },
-            {
-              label: "OAuth 클라이언트 ID 생성 + 다운로드",
-              urlBase: "https://console.cloud.google.com/apis/credentials?project=",
-              steps: [
-                "+ Create Credentials → OAuth client ID",
-                "애플리케이션 유형: 데스크톱 앱",
-                "만들기 → JSON 다운로드",
-              ],
-            },
-          ].map((section, idx) => {
-            const projectId = extraAccounts[0]?.projectId ?? "YOUR_PROJECT_ID"
-            const url = section.urlBase + projectId
-            return (
-              <Card key={idx} className="overflow-hidden">
-                <div className="flex items-center justify-between border-b bg-muted/40 px-4 py-2.5">
-                  <div className="flex items-center gap-2">
-                    <span className="flex size-5 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">{idx + 1}</span>
-                    <span className="text-sm font-medium">{section.label}</span>
-                  </div>
-                  <a href={url} target="_blank" rel="noopener noreferrer"
-                    className="flex items-center gap-1 rounded-md bg-blue-600 px-3 py-1 text-xs font-medium text-white hover:bg-blue-700 transition-colors">
-                    <ExternalLink className="size-3" />바로가기
-                  </a>
-                </div>
-                <CardContent className="p-4">
-                  <ol className="space-y-2">
-                    {section.steps.map((step, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-sm">
-                        <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full border text-xs font-semibold">{i + 1}</span>
-                        <span className={step.startsWith("⚠️") ? "text-orange-600 font-medium" : ""}>{step}</span>
-                      </li>
-                    ))}
-                  </ol>
-                </CardContent>
-              </Card>
-            )
-          })}
-        </div>
-      </section>
+            {/* Step 2 */}
+            <section className="space-y-4">
+              <h2 className="text-base font-semibold flex items-center gap-2">
+                <span className="flex size-6 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">2</span>
+                OAuth 동의화면 + 크리덴셜 (브라우저 필수)
+              </h2>
+              <div className="space-y-3">
+                {[
+                  {
+                    label: "OAuth 동의화면 설정",
+                    urlBase: "https://console.cloud.google.com/apis/credentials/consent?project=",
+                    steps: [
+                      "External → Create",
+                      "앱 이름 + 지원 이메일 입력 → Save and Continue (나머지 통과)",
+                      "⚠️ Test users → + Add Users → 추가 계정 이메일 추가 (필수!)",
+                    ],
+                  },
+                  {
+                    label: "OAuth 클라이언트 ID 생성 + 다운로드",
+                    urlBase: "https://console.cloud.google.com/apis/credentials?project=",
+                    steps: [
+                      "+ Create Credentials → OAuth client ID",
+                      "애플리케이션 유형: 데스크톱 앱",
+                      "만들기 → JSON 다운로드",
+                    ],
+                  },
+                ].map((section, cardIdx) => {
+                  const url = section.urlBase + (account.projectId ?? "YOUR_PROJECT_ID")
+                  return (
+                    <Card key={cardIdx} className="overflow-hidden">
+                      <div className="flex items-center justify-between border-b bg-muted/40 px-4 py-2.5">
+                        <div className="flex items-center gap-2">
+                          <span className="flex size-5 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">{cardIdx + 1}</span>
+                          <span className="text-sm font-medium">{section.label}</span>
+                        </div>
+                        <a href={url} target="_blank" rel="noopener noreferrer"
+                          className="flex items-center gap-1 rounded-md bg-blue-600 px-3 py-1 text-xs font-medium text-white hover:bg-blue-700 transition-colors">
+                          <ExternalLink className="size-3" />바로가기
+                        </a>
+                      </div>
+                      <CardContent className="p-4">
+                        <ol className="space-y-2">
+                          {section.steps.map((step, i) => (
+                            <li key={i} className="flex items-start gap-2.5 text-sm">
+                              <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full border text-xs font-semibold">{i + 1}</span>
+                              <span className={step.startsWith("⚠️") ? "text-orange-600 font-medium" : ""}>{step}</span>
+                            </li>
+                          ))}
+                        </ol>
+                      </CardContent>
+                    </Card>
+                  )
+                })}
+              </div>
+            </section>
 
-      {/* Step 3: Setup config dir */}
-      <section className="space-y-4">
-        <h2 className="text-base font-semibold flex items-center gap-2">
-          <span className="flex size-6 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">3</span>
-          Config 디렉토리 생성 및 인증
-        </h2>
-
-        <Alert className="border-orange-200 bg-orange-50 dark:bg-orange-950/20">
-          <AlertCircle className="size-4 text-orange-600" />
-          <AlertDescription className="text-xs text-orange-700 dark:text-orange-400">
-            <strong>환경변수와 gws 명령은 반드시 한 줄로!</strong> 줄바꿈하면 오류가 납니다.
-          </AlertDescription>
-        </Alert>
-
-        <PersonalizedCommand
-          accountIndex="non-default"
-          template={`# config 디렉토리 생성
+            {/* Step 3 */}
+            <section className="space-y-4">
+              <h2 className="text-base font-semibold flex items-center gap-2">
+                <span className="flex size-6 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">3</span>
+                Config 디렉토리 생성 및 인증
+              </h2>
+              <Alert className="border-orange-200 bg-orange-50 dark:bg-orange-950/20">
+                <AlertCircle className="size-4 text-orange-600" />
+                <AlertDescription className="text-xs text-orange-700 dark:text-orange-400">
+                  <strong>환경변수와 gws 명령은 반드시 한 줄로!</strong> 줄바꿈하면 오류가 납니다.
+                </AlertDescription>
+              </Alert>
+              <PersonalizedCommand
+                accountIndex={accountArrayIndex}
+                template={`# config 디렉토리 생성
 mkdir -p {{CONFIG_DIR}}
 
 # 다운받은 JSON을 client_secret.json으로 복사
@@ -185,38 +226,40 @@ cp ~/Downloads/client_secret_*.json {{CONFIG_DIR}}/client_secret.json
 
 # gws auth setup (한 줄로 실행!)
 GOOGLE_WORKSPACE_CLI_CONFIG_DIR={{CONFIG_DIR}} gws auth setup --project {{PROJECT_ID}} --login`}
-          filename="한 줄씩 순서대로 실행"
-        />
+                filename="한 줄씩 순서대로 실행"
+              />
+              <div className="rounded-lg border bg-muted/30 p-3 space-y-2 text-xs">
+                <p className="font-medium">실행 중 계정 선택 프롬프트가 나오면:</p>
+                <Card className="bg-zinc-950">
+                  <CardContent className="p-3 font-mono text-xs text-zinc-300 space-y-0.5">
+                    <p className="text-zinc-500">┌ Select a Google account ──────────────┐</p>
+                    <p>{"  ○ "}{defaultAccount?.email ?? "기본계정@gmail.com"}</p>
+                    <p>{"  ◉ "}<span className="text-yellow-400">{account.email}</span>
+                      {" "}<span className="text-green-400">← 이 계정 선택</span></p>
+                    <p className="text-zinc-500">└──────────────────────────────────────┘</p>
+                  </CardContent>
+                </Card>
+              </div>
+            </section>
 
-        <div className="rounded-lg border bg-muted/30 p-3 space-y-2 text-xs">
-          <p className="font-medium">실행 중 계정 선택 프롬프트가 나오면:</p>
-          <Card className="bg-zinc-950">
-            <CardContent className="p-3 font-mono text-xs text-zinc-300 space-y-0.5">
-              <p className="text-zinc-500">┌ Select a Google account ──────────────┐</p>
-              <p>{"  ○ "}{defaultAccount?.email ?? "기본계정@gmail.com"}</p>
-              <p>{"  ◉ "}<span className="text-yellow-400">{extraAccounts[0]?.email ?? "추가계정@gmail.com"}</span>
-                {" "}<span className="text-green-400">← 이 계정 선택</span></p>
-              <p className="text-zinc-500">└──────────────────────────────────────┘</p>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* Step 4: Verify */}
-      <section className="space-y-4">
-        <h2 className="text-base font-semibold flex items-center gap-2">
-          <span className="flex size-6 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">4</span>
-          인증 확인
-        </h2>
-        <PersonalizedCommand
-          accountIndex="non-default"
-          template={`GOOGLE_WORKSPACE_CLI_CONFIG_DIR={{CONFIG_DIR}} gws auth status`}
-        />
-        <p className="text-xs text-muted-foreground">
-          <code className="rounded bg-muted px-1">&quot;token_valid&quot;: true</code>와
-          <code className="mx-1 rounded bg-muted px-1">&quot;user&quot;: &quot;추가계정@gmail.com&quot;</code>이 나오면 성공입니다.
-        </p>
-      </section>
+            {/* Step 4 */}
+            <section className="space-y-4">
+              <h2 className="text-base font-semibold flex items-center gap-2">
+                <span className="flex size-6 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">4</span>
+                인증 확인
+              </h2>
+              <PersonalizedCommand
+                accountIndex={accountArrayIndex}
+                template={`GOOGLE_WORKSPACE_CLI_CONFIG_DIR={{CONFIG_DIR}} gws auth status`}
+              />
+              <p className="text-xs text-muted-foreground">
+                <code className="rounded bg-muted px-1">&quot;token_valid&quot;: true</code>와
+                <code className="mx-1 rounded bg-muted px-1">&quot;user&quot;: &quot;{account.email}&quot;</code>이 나오면 성공입니다.
+              </p>
+            </section>
+          </div>
+        )
+      })}
 
       <Separator />
 

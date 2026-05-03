@@ -179,8 +179,26 @@ export function AccountSetup() {
                 {extraAccounts.map((account) => (
                   <div key={account.id} className="rounded-lg border bg-blue-50/40 dark:bg-blue-950/10 p-3 space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium">{account.email}</span>
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className="text-sm font-medium truncate">{account.email}</span>
+                        {account.isExisting ? (
+                          <Badge variant="secondary" className="text-[10px] px-1.5 shrink-0 bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400">
+                            <CheckCircle2 className="size-2.5 mr-1" />
+                            이미 설치됨
+                          </Badge>
+                        ) : (
+                          <Badge variant="outline" className="text-[10px] px-1.5 shrink-0 text-muted-foreground">
+                            신규 설치
+                          </Badge>
+                        )}
+                      </div>
                       <div className="flex items-center gap-1">
+                        <button
+                          onClick={() => updateAccount(account.id, { isExisting: !account.isExisting })}
+                          className="text-xs text-muted-foreground hover:text-foreground underline underline-offset-2 shrink-0"
+                        >
+                          {account.isExisting ? "신규로 변경" : "이미 있음"}
+                        </button>
                         <Button
                           variant="ghost"
                           size="icon-xs"
