@@ -281,7 +281,7 @@ gcloud auth list`}
       </div>
 
       <StepFooter
-        prev={{ href: "/guide/install", label: "3. gws 설치" }}
+        prev={{ href: "/guide/credentials", label: "3. 크리덴셜 다운로드" }}
         next={{ href: "/guide/commands", label: "명령어 가이드" }}
       />
     </article>

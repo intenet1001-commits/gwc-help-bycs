@@ -13,7 +13,7 @@ export default function InstallPage() {
   return (
     <article className="space-y-8">
       <header className="space-y-2">
-        <Badge variant="secondary">STEP 3 / 4</Badge>
+        <Badge variant="secondary">STEP 1 / 4</Badge>
         <h1 className="text-2xl font-bold">gws CLI 설치</h1>
         <p className="text-muted-foreground text-sm">
           gws CLI는 Node.js 기반으로 동작합니다. Node.js가 없다면 먼저 설치해야 합니다.
@@ -172,8 +172,7 @@ This is not an officially supported Google product.`}
       </div>
 
       <StepFooter
-        prev={{ href: "/guide/credentials", label: "2. 크리덴셜 다운로드" }}
-        next={{ href: "/guide/auth-setup", label: "4. 인증 설정" }}
+        next={{ href: "/guide/gcp-project", label: "2. GCP 프로젝트 세팅" }}
       />
     </article>
   )

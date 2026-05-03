@@ -17,7 +17,7 @@ export default function GcpProjectPage() {
   return (
     <article className="space-y-8">
       <header className="space-y-2">
-        <Badge variant="secondary">STEP 1 / 4</Badge>
+        <Badge variant="secondary">STEP 2 / 4</Badge>
         <h1 className="text-2xl font-bold">GCP 프로젝트 & API 세팅</h1>
         <p className="text-muted-foreground text-sm">
           gcloud CLI로 터미널에서 전부 처리합니다. 브라우저 없이 복붙만 하면 됩니다.
@@ -183,7 +183,8 @@ gcloud services list --enabled --filter="NAME:(gmail OR drive OR calendar)"`}
       </div>
 
       <StepFooter
-        next={{ href: "/guide/credentials", label: "2. OAuth 크리덴셜 받기" }}
+        prev={{ href: "/guide/install", label: "1. gws CLI 설치" }}
+        next={{ href: "/guide/credentials", label: "3. OAuth 크리덴셜 받기" }}
       />
     </article>
   )

@@ -9,6 +9,14 @@ import { HomeQuickStart } from "@/components/home-quick-start"
 const steps = [
   {
     number: "01",
+    href: "/guide/install",
+    title: "gws CLI 설치",
+    description: "npm install -g @googleworkspace/cli 한 줄로 설치. Node.js만 있으면 됩니다.",
+    time: "CLI · 2분",
+    badge: "CLI",
+  },
+  {
+    number: "02",
     href: "/guide/gcp-project",
     title: "GCP 프로젝트 & API 세팅",
     description: "gcloud CLI로 프로젝트 생성 + 필요한 API 한 번에 활성화. 브라우저 불필요.",
@@ -16,20 +24,12 @@ const steps = [
     badge: "CLI",
   },
   {
-    number: "02",
+    number: "03",
     href: "/guide/credentials",
     title: "OAuth 크리덴셜 받기",
     description: "이 단계만 브라우저 필요. 두 링크에서 10번 클릭으로 credentials.json 다운로드.",
     time: "브라우저 · 5분",
     badge: "브라우저",
-  },
-  {
-    number: "03",
-    href: "/guide/install",
-    title: "gws CLI 설치",
-    description: "npm install -g @googleworkspace/cli 한 줄로 설치.",
-    time: "CLI · 2분",
-    badge: "CLI",
   },
   {
     number: "04",
@@ -69,7 +69,7 @@ export default function Home() {
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <Button size="lg" asChild>
-            <Link href="/guide/gcp-project" className="flex items-center gap-2">
+            <Link href="/guide/install" className="flex items-center gap-2">
               지금 시작하기
               <ArrowRight className="size-4" />
             </Link>
