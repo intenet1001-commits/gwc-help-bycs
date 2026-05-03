@@ -8,6 +8,7 @@ import { StepFooter } from "@/components/step-footer"
 import { PersonalizedCommand } from "@/components/personalized-command"
 import { AlertCircle, Info, CheckCircle2, Circle, Loader2 } from "lucide-react"
 import Link from "next/link"
+import { useAccounts } from "@/lib/accounts-context"
 
 function SetupProgress({ steps, current }: { steps: string[]; current: number }) {
   return (
@@ -39,6 +40,7 @@ function SetupProgress({ steps, current }: { steps: string[]; current: number })
 }
 
 export default function AuthSetupPage() {
+  const { defaultAccount } = useAccounts()
   const setupSteps = [
     "gcloud CLI — found",
     "Authentication",
@@ -56,6 +58,24 @@ export default function AuthSetupPage() {
           GCP 프로젝트와 OAuth 크리덴셜을 연결하여 gws가 Google 계정에 접근할 수 있도록 설정합니다.
         </p>
       </header>
+
+      {defaultAccount?.isExisting && (
+        <div className="rounded-xl border border-green-300 bg-green-50 dark:border-green-800 dark:bg-green-950/20 p-4 space-y-2">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="size-5 text-green-600 shrink-0" />
+            <p className="text-sm font-semibold text-green-700 dark:text-green-400">
+              이미 설치됨으로 표시된 계정입니다
+            </p>
+          </div>
+          <p className="text-xs text-green-700 dark:text-green-500">
+            <strong>{defaultAccount.email}</strong> 계정은 이미{" "}
+            <code className="rounded bg-green-100 dark:bg-green-900/40 px-1">gws auth setup</code>이 완료된 것으로 표시되어 있습니다.
+            아래 단계를 건너뛰고 바로{" "}
+            <Link href="/guide/commands" className="underline underline-offset-2">명령어 가이드</Link>로 이동하거나,
+            재설치가 필요하면 계속 진행하세요.
+          </p>
+        </div>
+      )}
 
       {/* Prerequisites */}
       <section className="rounded-xl border bg-muted/40 p-4 space-y-2">
