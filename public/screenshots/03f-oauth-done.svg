@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" fill="none">
+  <rect width="800" height="400" fill="#f8f9fa" rx="6"/>
+  <rect width="800" height="48" fill="#1a73e8" rx="6"/>
+  <rect y="42" width="800" height="6" fill="#1a73e8"/>
+  <text x="46" y="29" fill="white" font-family="sans-serif" font-size="13" font-weight="600">Google Cloud</text>
+  <rect x="170" y="10" width="150" height="28" rx="4" fill="white" opacity="0.2"/>
+  <text x="245" y="29" text-anchor="middle" fill="white" font-family="sans-serif" font-size="12">GWS CLI ▾</text>
+  <!-- Sidebar -->
+  <rect x="0" y="48" width="200" height="352" fill="#f1f5f9"/>
+  <rect x="200" y="48" width="1" height="352" fill="#e2e8f0"/>
+  <text x="20" y="76" fill="#5f6368" font-family="sans-serif" font-size="11">APIs &amp; Services</text>
+  <rect x="12" y="84" width="188" height="28" rx="4" fill="#e8f0fe"/>
+  <rect x="12" y="84" width="3" height="28" rx="1.5" fill="#1a73e8"/>
+  <text x="24" y="102" fill="#1a73e8" font-family="sans-serif" font-size="11" font-weight="600">OAuth consent screen</text>
+  <text x="20" y="130" fill="#9aa0a6" font-family="sans-serif" font-size="11">Credentials</text>
+  <!-- Main -->
+  <rect x="201" y="48" width="599" height="352" fill="white"/>
+  <text x="224" y="78" fill="#202124" font-family="sans-serif" font-size="16" font-weight="600">OAuth consent screen</text>
+  <!-- App info card -->
+  <rect x="224" y="92" width="554" height="110" rx="8" fill="white" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="244" y="116" fill="#5f6368" font-family="sans-serif" font-size="10" font-weight="600">앱 이름</text>
+  <text x="244" y="132" fill="#202124" font-family="sans-serif" font-size="14" font-weight="600">gws-cli</text>
+  <line x1="244" y1="142" x2="762" y2="142" stroke="#f1f5f9"/>
+  <text x="244" y="160" fill="#5f6368" font-family="sans-serif" font-size="10" font-weight="600">사용자 유형</text>
+  <rect x="244" y="166" width="80" height="22" rx="11" fill="#fce8e6" stroke="#d93025"/>
+  <text x="284" y="181" text-anchor="middle" fill="#d93025" font-family="sans-serif" font-size="11" font-weight="600">외부 (External)</text>
+  <!-- Test users section -->
+  <rect x="224" y="216" width="554" height="70" rx="8" fill="white" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="244" y="238" fill="#202124" font-family="sans-serif" font-size="12" font-weight="600">테스트 사용자</text>
+  <text x="244" y="256" fill="#5f6368" font-family="sans-serif" font-size="11">yourname@gmail.com</text>
+  <rect x="500" y="226" width="60" height="22" rx="4" fill="#f8f9fa" stroke="#dadce0"/>
+  <text x="530" y="241" text-anchor="middle" fill="#5f6368" font-family="sans-serif" font-size="10">+ 추가</text>
+  <!-- Success banner -->
+  <rect x="224" y="300" width="554" height="52" rx="8" fill="#e6f4ea" stroke="#34a853" stroke-width="1.5"/>
+  <circle cx="248" cy="326" r="12" fill="#34a853"/>
+  <text x="248" y="330" text-anchor="middle" fill="white" font-family="sans-serif" font-size="14" font-weight="bold">✓</text>
+  <text x="270" y="321" fill="#137333" font-family="sans-serif" font-size="12" font-weight="600">OAuth 동의 화면 설정 완료!</text>
+  <text x="270" y="339" fill="#137333" font-family="sans-serif" font-size="11">사용자 유형: 외부 + 테스트 사용자 추가 완료</text>
+</svg>

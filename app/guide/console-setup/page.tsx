@@ -166,11 +166,6 @@ export default function ConsoleSetupPage() {
                   <MiniStep n={1}>
                     <p className="text-sm font-medium">프로젝트 이름 입력칸을 클릭합니다</p>
                     <ClickHere>빨간 원 표시된 입력칸을 클릭하세요</ClickHere>
-                    <ScreenshotPlaceholder
-                      src="/screenshots/01b-name-highlight.png"
-                      alt="프로젝트 이름 입력 필드 강조"
-                      caption="여기를 클릭하세요 (빨간 원 위치)"
-                    />
                   </MiniStep>
 
                   <MiniStep n={2}>
@@ -181,21 +176,11 @@ export default function ConsoleSetupPage() {
                     <p className="text-xs text-muted-foreground">
                       입력하면 <strong>프로젝트 ID</strong>가 아래에 자동 생성됩니다. 그대로 두세요.
                     </p>
-                    <ScreenshotPlaceholder
-                      src="/screenshots/01c-name-filled.png"
-                      alt="프로젝트 이름 입력 후 ID 자동 생성"
-                      caption="이름 입력 후 — 프로젝트 ID가 자동으로 만들어집니다"
-                    />
                   </MiniStep>
 
                   <MiniStep n={3}>
                     <p className="text-sm font-medium">파란 <strong>만들기</strong> 버튼을 클릭합니다</p>
                     <ClickHere>파란 "만들기" 버튼 클릭</ClickHere>
-                    <ScreenshotPlaceholder
-                      src="/screenshots/01d-create-button.png"
-                      alt="만들기 버튼"
-                      caption="이 버튼을 클릭하세요"
-                    />
                   </MiniStep>
                 </div>
 
@@ -203,7 +188,7 @@ export default function ConsoleSetupPage() {
                   약 30초 기다리면 대시보드로 이동합니다. 상단에 방금 만든 프로젝트 이름이 보이면 성공!
                 </Success>
                 <ScreenshotPlaceholder
-                  src="/screenshots/01e-project-done.png"
+                  src="/screenshots/01e-project-done.svg"
                   alt="프로젝트 생성 완료 대시보드"
                   caption="이런 화면이 보이면 프로젝트 생성 완료"
                 />
@@ -275,7 +260,7 @@ export default function ConsoleSetupPage() {
             </div>
 
             <ScreenshotPlaceholder
-              src="/screenshots/02-api-library.png"
+              src="/screenshots/02-api-library.svg"
               alt="API 라이브러리 메인 화면"
               caption="API 라이브러리 — 여기서 검색해서 하나씩 활성화합니다"
             />
@@ -283,26 +268,16 @@ export default function ConsoleSetupPage() {
             <div className="space-y-5">
               <MiniStep n={1}>
                 <p className="text-sm font-medium">검색창에 API 이름을 입력합니다</p>
-                <ClickHere>검색창 클릭 후 "Gmail API" 입력</ClickHere>
-                <ScreenshotPlaceholder
-                  src="/screenshots/02b-search-highlight.png"
-                  alt="API 검색창 위치"
-                  caption="검색창 위치 (빨간 원) — 클릭 후 입력"
-                />
-                <ScreenshotPlaceholder
-                  src="/screenshots/02c-search-gmail.png"
-                  alt="Gmail API 검색 결과"
-                  caption='"Gmail API" 검색 결과 — 첫 번째 항목을 클릭하세요'
-                />
+                <ClickHere>검색창 클릭 후 "Gmail API" 입력 → 첫 번째 결과 클릭</ClickHere>
               </MiniStep>
 
               <MiniStep n={2}>
                 <p className="text-sm font-medium">API 상세 페이지에서 파란 <strong>사용</strong> 버튼을 클릭합니다</p>
                 <ClickHere>파란 "사용" 버튼 클릭</ClickHere>
                 <ScreenshotPlaceholder
-                  src="/screenshots/02d-gmail-enable-btn.png"
+                  src="/screenshots/02d-gmail-enable-btn.svg"
                   alt="Gmail API 사용 버튼"
-                  caption='"사용" 버튼 (빨간 원) — 클릭하면 API가 활성화됩니다'
+                  caption='"사용" 버튼 ① 클릭 — 잠시 후 사용 설정됨으로 바뀝니다'
                 />
                 <Success>"사용 설정됨"으로 바뀌면 이 API 완료!</Success>
               </MiniStep>
@@ -339,9 +314,9 @@ export default function ConsoleSetupPage() {
               6개 API 모두 "사용 설정됨" 상태가 되면 Step 2 완료!
             </Success>
             <ScreenshotPlaceholder
-              src="/screenshots/02e-api-enabled.png"
-              alt="API 활성화 완료 대시보드"
-              caption="API 대시보드 — 활성화된 API 목록에서 확인 가능"
+              src="/screenshots/02e-api-enabled.svg"
+              alt="API 활성화 완료 — 6개 사용 설정됨"
+              caption="6개 API 모두 사용 설정됨 — Step 2 완료!"
             />
           </CardContent>
         </Card>
@@ -453,9 +428,9 @@ export default function ConsoleSetupPage() {
               설정 완료 후 아래처럼 "사용자 유형: 외부" 가 표시되면 Step 3 완료!
             </Success>
             <ScreenshotPlaceholder
-              src="/screenshots/03f-test-users-done.png"
-              alt="OAuth 동의 화면 완료 상태 — 사용자 유형: 외부"
-              caption="설정 완료 후 화면 — '사용자 유형: 외부' 가 보이면 정상"
+              src="/screenshots/03f-oauth-done.svg"
+              alt="OAuth 동의 화면 완료 — 사용자 유형: 외부"
+              caption="설정 완료 후 화면 — '사용자 유형: 외부' + 테스트 사용자 확인"
             />
           </CardContent>
         </Card>
