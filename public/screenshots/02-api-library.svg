@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8fafc"/>
+      <stop offset="100%" style="stop-color:#e2e8f0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bg2)"/>
+
+  <!-- Header bar -->
+  <rect width="800" height="56" fill="#1a73e8"/>
+  <text x="20" y="36" font-family="Arial, sans-serif" font-size="18" fill="white" font-weight="bold">Google Cloud</text>
+
+  <!-- Sidebar -->
+  <rect x="0" y="56" width="200" height="444" fill="#f1f5f9"/>
+
+  <!-- Main content -->
+  <rect x="200" y="56" width="600" height="444" fill="white"/>
+
+  <!-- Page title -->
+  <text x="240" y="100" font-family="Arial, sans-serif" font-size="22" fill="#202124" font-weight="500">API Library</text>
+
+  <!-- Search bar -->
+  <rect x="240" y="120" width="520" height="44" rx="22" fill="#f1f3f4" stroke="#dadce0" stroke-width="1"/>
+  <text x="270" y="148" font-family="Arial, sans-serif" font-size="14" fill="#5f6368">Search for APIs &amp; Services</text>
+
+  <!-- API Cards Grid -->
+  <!-- Gmail API -->
+  <rect x="240" y="184" width="160" height="120" rx="8" fill="white" stroke="#dadce0" stroke-width="1"/>
+  <rect x="256" y="200" width="40" height="40" rx="4" fill="#ea4335"/>
+  <text x="268" y="228" font-family="Arial, sans-serif" font-size="16" fill="white" font-weight="bold">M</text>
+  <text x="256" y="260" font-family="Arial, sans-serif" font-size="13" fill="#202124" font-weight="500">Gmail API</text>
+  <text x="256" y="278" font-family="Arial, sans-serif" font-size="11" fill="#5f6368">Google</text>
+
+  <!-- Drive API -->
+  <rect x="420" y="184" width="160" height="120" rx="8" fill="white" stroke="#dadce0" stroke-width="1"/>
+  <rect x="436" y="200" width="40" height="40" rx="4" fill="#4285f4"/>
+  <text x="448" y="228" font-family="Arial, sans-serif" font-size="16" fill="white" font-weight="bold">D</text>
+  <text x="436" y="260" font-family="Arial, sans-serif" font-size="13" fill="#202124" font-weight="500">Google Drive API</text>
+  <text x="436" y="278" font-family="Arial, sans-serif" font-size="11" fill="#5f6368">Google</text>
+
+  <!-- Calendar API -->
+  <rect x="600" y="184" width="160" height="120" rx="8" fill="white" stroke="#dadce0" stroke-width="1"/>
+  <rect x="616" y="200" width="40" height="40" rx="4" fill="#34a853"/>
+  <text x="628" y="228" font-family="Arial, sans-serif" font-size="16" fill="white" font-weight="bold">C</text>
+  <text x="616" y="260" font-family="Arial, sans-serif" font-size="13" fill="#202124" font-weight="500">Calendar API</text>
+  <text x="616" y="278" font-family="Arial, sans-serif" font-size="11" fill="#5f6368">Google</text>
+
+  <!-- Sheets API -->
+  <rect x="240" y="324" width="160" height="120" rx="8" fill="white" stroke="#dadce0" stroke-width="1"/>
+  <rect x="256" y="340" width="40" height="40" rx="4" fill="#0f9d58"/>
+  <text x="268" y="368" font-family="Arial, sans-serif" font-size="16" fill="white" font-weight="bold">S</text>
+  <text x="256" y="400" font-family="Arial, sans-serif" font-size="13" fill="#202124" font-weight="500">Google Sheets API</text>
+  <text x="256" y="418" font-family="Arial, sans-serif" font-size="11" fill="#5f6368">Google</text>
+
+  <!-- Docs API -->
+  <rect x="420" y="324" width="160" height="120" rx="8" fill="white" stroke="#dadce0" stroke-width="1"/>
+  <rect x="436" y="340" width="40" height="40" rx="4" fill="#4285f4"/>
+  <text x="448" y="368" font-family="Arial, sans-serif" font-size="16" fill="white" font-weight="bold">D</text>
+  <text x="436" y="400" font-family="Arial, sans-serif" font-size="13" fill="#202124" font-weight="500">Google Docs API</text>
+  <text x="436" y="418" font-family="Arial, sans-serif" font-size="11" fill="#5f6368">Google</text>
+
+  <!-- Tasks API -->
+  <rect x="600" y="324" width="160" height="120" rx="8" fill="white" stroke="#dadce0" stroke-width="1"/>
+  <rect x="616" y="340" width="40" height="40" rx="4" fill="#fbbc04"/>
+  <text x="628" y="368" font-family="Arial, sans-serif" font-size="16" fill="white" font-weight="bold">T</text>
+  <text x="616" y="400" font-family="Arial, sans-serif" font-size="13" fill="#202124" font-weight="500">Tasks API</text>
+  <text x="616" y="418" font-family="Arial, sans-serif" font-size="11" fill="#5f6368">Google</text>
+</svg>

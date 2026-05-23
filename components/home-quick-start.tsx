@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { CheckCircle2, ArrowRight, Rocket } from "lucide-react"
+import { CheckCircle2, ArrowRight, Rocket, Monitor } from "lucide-react"
 import { useAccounts } from "@/lib/accounts-context"
 
 export function HomeQuickStart() {
@@ -39,32 +39,46 @@ export function HomeQuickStart() {
   return (
     <div className="rounded-xl border-2 bg-muted/30 p-5 space-y-4">
       <p className="text-sm font-semibold">나는 어떤 상황인가요?</p>
-      <div className="grid sm:grid-cols-2 gap-3">
+      <div className="grid sm:grid-cols-3 gap-3">
         <div className="rounded-lg border bg-background p-4 space-y-3">
           <div className="flex items-center gap-2">
             <Rocket className="size-4 text-primary" />
-            <p className="text-sm font-medium">처음 설치하는 경우</p>
+            <p className="text-sm font-medium">처음 설치 (CLI)</p>
           </div>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            gws를 한 번도 설치한 적 없어요. 아래에 이메일을 입력한 뒤 Step 1부터 시작하세요.
+            터미널이 익숙해요. gcloud CLI로 빠르게 설정할게요.
           </p>
           <Button asChild size="sm" className="w-full">
             <Link href="/guide/install" className="flex items-center justify-center gap-1.5">
-              Step 1부터 시작 <ArrowRight className="size-3" />
+              CLI 가이드 <ArrowRight className="size-3" />
+            </Link>
+          </Button>
+        </div>
+        <div className="rounded-lg border bg-background p-4 space-y-3 border-orange-200 dark:border-orange-800">
+          <div className="flex items-center gap-2">
+            <Monitor className="size-4 text-orange-500" />
+            <p className="text-sm font-medium">처음 설치 (콘솔)</p>
+          </div>
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            터미널이 어려워요. 브라우저에서 클릭으로 설정할게요.
+          </p>
+          <Button asChild size="sm" variant="outline" className="w-full border-orange-300 text-orange-700 hover:bg-orange-50 dark:border-orange-700 dark:text-orange-400">
+            <Link href="/guide/console-setup" className="flex items-center justify-center gap-1.5">
+              콘솔 가이드 <ArrowRight className="size-3" />
             </Link>
           </Button>
         </div>
         <div className="rounded-lg border bg-background p-4 space-y-3">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="size-4 text-green-500" />
-            <p className="text-sm font-medium">이미 gws가 있는 경우</p>
+            <p className="text-sm font-medium">이미 gws 있음</p>
           </div>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            이미 <code className="rounded bg-muted px-1">gws auth setup</code>을 완료한 계정이 있어요. 아래에 이메일 입력 후 &quot;이미 있음&quot; 클릭하세요.
+            이미 설정 완료. 아래 이메일 입력 후 &quot;이미 있음&quot; 클릭.
           </p>
           <Button asChild size="sm" variant="outline" className="w-full">
             <Link href="/guide/commands" className="flex items-center justify-center gap-1.5">
-              명령어 가이드로 이동 <ArrowRight className="size-3" />
+              명령어 보기 <ArrowRight className="size-3" />
             </Link>
           </Button>
         </div>

@@ -2,7 +2,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRight, CheckCircle2, Terminal, Wrench } from "lucide-react"
+import { ArrowRight, CheckCircle2, Terminal, Wrench, Monitor } from "lucide-react"
 import { AccountSetup } from "@/components/account-setup"
 import { HomeQuickStart } from "@/components/home-quick-start"
 
@@ -147,6 +147,32 @@ export default function Home() {
             </Link>
           ))}
         </div>
+      </section>
+
+      {/* Console guide highlight */}
+      <section>
+        <Link href="/guide/console-setup" className="block group">
+          <Card className="border-dashed transition-colors hover:border-primary/50 bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-950/20 dark:to-amber-950/20">
+            <CardContent className="p-6 flex items-center gap-4">
+              <div className="size-12 rounded-xl bg-orange-100 dark:bg-orange-900/40 flex items-center justify-center shrink-0">
+                <Monitor className="size-6 text-orange-600 dark:text-orange-400" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-semibold text-sm group-hover:text-primary transition-colors flex items-center gap-2">
+                  GCP 콘솔 전체 가이드
+                  <Badge variant="outline" className="text-[10px] px-1.5 py-0 border-orange-300 text-orange-600">
+                    브라우저 전용
+                  </Badge>
+                  <ArrowRight className="size-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </h3>
+                <p className="text-xs text-muted-foreground mt-1">
+                  CLI 없이 브라우저에서 GCP 프로젝트 생성부터 OAuth 크리덴셜까지.
+                  단계별 스크린샷과 함께 안내합니다.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
       </section>
 
       {/* Tool highlight */}

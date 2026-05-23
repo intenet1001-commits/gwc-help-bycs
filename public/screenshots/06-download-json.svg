@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none">
+  <defs>
+    <linearGradient id="bg6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8fafc"/>
+      <stop offset="100%" style="stop-color:#e2e8f0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bg6)"/>
+
+  <!-- Dimmed background -->
+  <rect width="800" height="500" fill="rgba(0,0,0,0.5)"/>
+
+  <!-- Modal dialog -->
+  <rect x="150" y="100" width="500" height="300" rx="8" fill="white" filter="drop-shadow(0 8px 16px rgba(0,0,0,0.2))"/>
+
+  <!-- Modal header -->
+  <text x="185" y="145" font-family="Arial, sans-serif" font-size="20" fill="#202124" font-weight="500">OAuth client created</text>
+
+  <!-- Success icon -->
+  <circle cx="185" cy="138" r="16" fill="#34a853"/>
+  <path d="M 178 138 L 183 143 L 193 133" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Description -->
+  <text x="185" y="180" font-family="Arial, sans-serif" font-size="14" fill="#5f6368">Your client ID and secret have been created.</text>
+  <text x="185" y="200" font-family="Arial, sans-serif" font-size="14" fill="#5f6368">Download the JSON file to use in your application.</text>
+
+  <!-- Client ID field -->
+  <text x="185" y="240" font-family="Arial, sans-serif" font-size="12" fill="#5f6368">Client ID</text>
+  <rect x="185" y="250" width="430" height="36" rx="4" fill="#f8f9fa" stroke="#dadce0" stroke-width="1"/>
+  <text x="197" y="274" font-family="Arial, sans-serif" font-size="12" fill="#202124">1234567890-abc...xyz.apps.googleusercontent.com</text>
+
+  <!-- Client Secret field -->
+  <text x="185" y="310" font-family="Arial, sans-serif" font-size="12" fill="#5f6368">Client secret</text>
+  <rect x="185" y="320" width="430" height="36" rx="4" fill="#f8f9fa" stroke="#dadce0" stroke-width="1"/>
+  <text x="197" y="344" font-family="Arial, sans-serif" font-size="12" fill="#202124">GOCSPX-xxxxxxxxxxxxxxxxxxxxxxxx</text>
+
+  <!-- Download JSON button (highlighted) -->
+  <rect x="420" y="370" width="130" height="40" rx="4" fill="#1a73e8"/>
+  <text x="440" y="396" font-family="Arial, sans-serif" font-size="14" fill="white" font-weight="500">DOWNLOAD JSON</text>
+
+  <!-- OK button -->
+  <rect x="560" y="370" width="55" height="40" rx="4" fill="white" stroke="#dadce0" stroke-width="1"/>
+  <text x="576" y="396" font-family="Arial, sans-serif" font-size="14" fill="#1a73e8" font-weight="500">OK</text>
+
+  <!-- Arrow pointing to download button -->
+  <path d="M 485 330 L 485 365" stroke="#34a853" stroke-width="3"/>
+  <polygon points="480,365 485,375 490,365" fill="#34a853"/>
+
+  <!-- Callout -->
+  <rect x="380" y="420" width="220" height="50" rx="8" fill="#d4edda" stroke="#34a853" stroke-width="2"/>
+  <text x="400" y="442" font-family="Arial, sans-serif" font-size="12" fill="#155724" font-weight="bold">Click here to download!</text>
+  <text x="400" y="458" font-family="Arial, sans-serif" font-size="11" fill="#155724">Save as credentials.json</text>
+</svg>

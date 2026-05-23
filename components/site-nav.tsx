@@ -13,6 +13,7 @@ const steps = [
   { href: "/guide/auth-setup", label: "4. 인증", short: "4" },
   { href: "/guide/multi-account", label: "+ 계정 추가", short: "+" },
   { href: "/guide/commands", label: "명령어", short: "🗒" },
+  { href: "/guide/console-setup", label: "콘솔", short: "🖥", isAlt: true },
 ]
 
 export function SiteNav() {
@@ -40,6 +41,8 @@ export function SiteNav() {
                   "flex items-center gap-1 rounded-md px-2.5 py-1 text-xs font-medium transition-colors",
                   pathname.startsWith(step.href)
                     ? "bg-primary text-primary-foreground"
+                    : (step as { isAlt?: boolean }).isAlt
+                    ? "border border-orange-300 text-orange-600 hover:bg-orange-50 dark:border-orange-700 dark:text-orange-400 dark:hover:bg-orange-950/30"
                     : i < currentStep
                     ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
                     : "text-muted-foreground hover:bg-accent"
@@ -102,6 +105,8 @@ export function SiteNav() {
                 "flex items-center justify-center size-7 rounded-full text-xs font-bold shrink-0 transition-colors",
                 pathname.startsWith(step.href)
                   ? "bg-primary text-primary-foreground"
+                  : (step as { isAlt?: boolean }).isAlt
+                  ? "border border-orange-400 text-orange-600 bg-orange-50 dark:bg-orange-950/30 dark:text-orange-400"
                   : i < currentStep
                   ? "bg-green-500 text-white"
                   : "bg-muted text-muted-foreground"
