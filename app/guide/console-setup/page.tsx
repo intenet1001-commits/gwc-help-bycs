@@ -4,8 +4,10 @@ import Link from "next/link"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { StepFooter } from "@/components/step-footer"
 import { ScreenshotPlaceholder } from "@/components/screenshot-placeholder"
+import { CodeBlock } from "@/components/code-block"
 import { useAccounts } from "@/lib/accounts-context"
 import {
   Info,
@@ -14,6 +16,8 @@ import {
   AlertTriangle,
   MousePointerClick,
   ChevronRight,
+  Monitor,
+  Terminal,
 } from "lucide-react"
 
 // ── 재사용 UI 컴포넌트 ────────────────────────────────────────────────────────
@@ -99,21 +103,10 @@ export default function ConsoleSetupPage() {
         </div>
         <h1 className="text-2xl font-bold">GCP 콘솔 완전 초보 가이드</h1>
         <p className="text-muted-foreground text-sm leading-relaxed">
-          터미널·CLI 없이 <strong>브라우저만</strong>으로 GCP 프로젝트 생성부터
-          OAuth 크리덴셜 다운로드까지 완료할 수 있습니다.
-          각 단계마다 <span className="text-red-600 font-medium">빨간 원</span>으로
-          클릭 위치를 표시했습니다.
+          GCP 프로젝트 생성부터 OAuth 크리덴셜 다운로드까지 단계별 스크린샷으로 안내합니다.
+          각 단계마다 <span className="text-red-600 font-medium">빨간 원</span>으로 클릭 위치를 표시했습니다.
         </p>
       </header>
-
-      <Alert className="border-blue-200 bg-blue-50 dark:bg-blue-950/20">
-        <Info className="size-4 text-blue-600" />
-        <AlertDescription className="text-xs text-blue-700 dark:text-blue-400">
-          터미널이 익숙하다면{" "}
-          <Link href="/guide/gcp-project" className="underline font-medium">CLI 가이드</Link>
-          가 더 빠릅니다. CLI가 어렵다면 이 페이지를 따라하세요.
-        </AlertDescription>
-      </Alert>
 
       {/* ── 전체 흐름 요약 ─────────────────────────────────────────────── */}
       <div className="rounded-xl border bg-muted/40 p-4">
@@ -136,76 +129,137 @@ export default function ConsoleSetupPage() {
       </div>
 
       {/* ══════════════════════════════════════════════════════════════════
-          STEP 1: 프로젝트 생성
+          STEP 1: 프로젝트 생성 — 콘솔 / CLI 2가지 방법
       ══════════════════════════════════════════════════════════════════ */}
       <section className="space-y-5">
         <StepNum n={1} label="GCP 프로젝트 만들기" time="3분" />
 
-        <Card>
-          <CardContent className="p-5 space-y-5">
-            <div className="flex items-center justify-between gap-4 flex-wrap">
-              <p className="text-sm text-muted-foreground">아래 버튼을 눌러 GCP 프로젝트 생성 페이지를 엽니다.</p>
-              <OpenBtn href="https://console.cloud.google.com/projectcreate" label="프로젝트 생성 페이지 열기" />
-            </div>
+        <Tabs defaultValue="console" className="w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="console" className="flex items-center gap-1.5">
+              <Monitor className="size-3.5" />
+              콘솔 (브라우저)
+            </TabsTrigger>
+            <TabsTrigger value="cli" className="flex items-center gap-1.5">
+              <Terminal className="size-3.5" />
+              CLI (터미널)
+            </TabsTrigger>
+          </TabsList>
 
-            <ScreenshotPlaceholder
-              src="/screenshots/01-project-create.png"
-              alt="GCP 프로젝트 생성 페이지"
-              caption="이런 화면이 나타납니다"
-              priority
-            />
+          {/* ── 콘솔 탭 ──────────────────────────────────────────────── */}
+          <TabsContent value="console" className="mt-4">
+            <Card>
+              <CardContent className="p-5 space-y-5">
+                <div className="flex items-center justify-between gap-4 flex-wrap">
+                  <p className="text-sm text-muted-foreground">아래 버튼을 눌러 GCP 프로젝트 생성 페이지를 엽니다.</p>
+                  <OpenBtn href="https://console.cloud.google.com/projectcreate" label="프로젝트 생성 페이지 열기" />
+                </div>
 
-            <div className="space-y-5">
-              <MiniStep n={1}>
-                <p className="text-sm font-medium">프로젝트 이름 입력칸을 클릭합니다</p>
-                <ClickHere>빨간 원 표시된 입력칸을 클릭하세요</ClickHere>
                 <ScreenshotPlaceholder
-                  src="/screenshots/01b-name-highlight.png"
-                  alt="프로젝트 이름 입력 필드 강조"
-                  caption="여기를 클릭하세요 (빨간 원 위치)"
+                  src="/screenshots/01-project-create.png"
+                  alt="GCP 프로젝트 생성 페이지"
+                  caption="이런 화면이 나타납니다"
+                  priority
                 />
-              </MiniStep>
 
-              <MiniStep n={2}>
-                <p className="text-sm font-medium">
-                  프로젝트 이름을 입력합니다 &mdash;{" "}
-                  <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">GWS CLI</code>
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  입력하면 <strong>프로젝트 ID</strong>가 아래에 자동 생성됩니다. 그대로 두세요.
-                </p>
+                <div className="space-y-5">
+                  <MiniStep n={1}>
+                    <p className="text-sm font-medium">프로젝트 이름 입력칸을 클릭합니다</p>
+                    <ClickHere>빨간 원 표시된 입력칸을 클릭하세요</ClickHere>
+                    <ScreenshotPlaceholder
+                      src="/screenshots/01b-name-highlight.png"
+                      alt="프로젝트 이름 입력 필드 강조"
+                      caption="여기를 클릭하세요 (빨간 원 위치)"
+                    />
+                  </MiniStep>
+
+                  <MiniStep n={2}>
+                    <p className="text-sm font-medium">
+                      프로젝트 이름을 입력합니다 &mdash;{" "}
+                      <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">GWS CLI</code>
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      입력하면 <strong>프로젝트 ID</strong>가 아래에 자동 생성됩니다. 그대로 두세요.
+                    </p>
+                    <ScreenshotPlaceholder
+                      src="/screenshots/01c-name-filled.png"
+                      alt="프로젝트 이름 입력 후 ID 자동 생성"
+                      caption="이름 입력 후 — 프로젝트 ID가 자동으로 만들어집니다"
+                    />
+                  </MiniStep>
+
+                  <MiniStep n={3}>
+                    <p className="text-sm font-medium">파란 <strong>만들기</strong> 버튼을 클릭합니다</p>
+                    <ClickHere>파란 "만들기" 버튼 클릭</ClickHere>
+                    <ScreenshotPlaceholder
+                      src="/screenshots/01d-create-button.png"
+                      alt="만들기 버튼"
+                      caption="이 버튼을 클릭하세요"
+                    />
+                  </MiniStep>
+                </div>
+
+                <Success>
+                  약 30초 기다리면 대시보드로 이동합니다. 상단에 방금 만든 프로젝트 이름이 보이면 성공!
+                </Success>
                 <ScreenshotPlaceholder
-                  src="/screenshots/01c-name-filled.png"
-                  alt="프로젝트 이름 입력 후 ID 자동 생성"
-                  caption="이름 입력 후 — 프로젝트 ID가 자동으로 만들어집니다"
+                  src="/screenshots/01e-project-done.png"
+                  alt="프로젝트 생성 완료 대시보드"
+                  caption="이런 화면이 보이면 프로젝트 생성 완료"
                 />
-              </MiniStep>
+              </CardContent>
+            </Card>
+          </TabsContent>
 
-              <MiniStep n={3}>
-                <p className="text-sm font-medium">파란 <strong>만들기</strong> 버튼을 클릭합니다</p>
-                <ClickHere>파란 "만들기" 버튼 클릭</ClickHere>
-                <ScreenshotPlaceholder
-                  src="/screenshots/01d-create-button.png"
-                  alt="만들기 버튼"
-                  caption="이 버튼을 클릭하세요 (파란 원)"
-                />
-              </MiniStep>
-            </div>
+          {/* ── CLI 탭 ───────────────────────────────────────────────── */}
+          <TabsContent value="cli" className="mt-4">
+            <Card>
+              <CardContent className="p-5 space-y-5">
+                <Alert className="border-blue-200 bg-blue-50 dark:bg-blue-950/20">
+                  <Info className="size-4 text-blue-600" />
+                  <AlertDescription className="text-xs text-blue-700 dark:text-blue-400">
+                    터미널을 사용하는 방법입니다. gcloud CLI가 설치되어 있어야 합니다.{" "}
+                    <Link href="/guide/install" className="underline font-medium">설치 가이드</Link>
+                  </AlertDescription>
+                </Alert>
 
-            <Success>
-              약 30초 기다리면 대시보드로 이동합니다. 상단에 방금 만든 프로젝트 이름이 보이면 성공!
-            </Success>
-            <ScreenshotPlaceholder
-              src="/screenshots/01e-project-done.png"
-              alt="프로젝트 생성 완료 대시보드"
-              caption="이런 화면이 보이면 프로젝트 생성 완료"
-            />
-          </CardContent>
-        </Card>
+                <div className="space-y-4">
+                  <MiniStep n={1}>
+                    <p className="text-sm font-medium">Google 계정 로그인</p>
+                    <CodeBlock code="gcloud auth login" lang="bash" />
+                    <p className="text-xs text-muted-foreground">
+                      브라우저가 열리면 사용할 Google 계정으로 로그인합니다.
+                    </p>
+                  </MiniStep>
+
+                  <MiniStep n={2}>
+                    <p className="text-sm font-medium">프로젝트 생성</p>
+                    <CodeBlock
+                      code={`gcloud projects create ${projectId} --name="GWS CLI"\ngcloud config set project ${projectId}`}
+                      lang="bash"
+                      filename="터미널에 순서대로 실행"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      <code className="rounded bg-muted px-1">{projectId}</code>는 소문자·숫자·하이픈만 가능합니다.
+                      홈에서 이메일을 입력하면 자동으로 채워집니다.
+                    </p>
+                  </MiniStep>
+                </div>
+
+                <Success>
+                  <code className="bg-green-100 dark:bg-green-900 px-1 rounded font-mono text-xs">
+                    gcloud config get-value project
+                  </code>
+                  로 프로젝트 ID가 출력되면 완료!
+                </Success>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
-          STEP 2: API 활성화
+          STEP 2: API 활성화 — 콘솔 스크린샷 기반
       ══════════════════════════════════════════════════════════════════ */}
       <section className="space-y-5">
         <StepNum n={2} label="필요한 API 6개 활성화하기" time="8분" />
@@ -259,12 +313,12 @@ export default function ConsoleSetupPage() {
                 </p>
                 <div className="rounded-lg border divide-y text-sm overflow-hidden">
                   {[
-                    { name: "Gmail API",            desc: "이메일 읽기/쓰기",      done: true },
-                    { name: "Google Drive API",      desc: "드라이브 파일 관리" },
-                    { name: "Google Calendar API",   desc: "캘린더 일정 관리" },
-                    { name: "Google Sheets API",     desc: "스프레드시트 편집" },
-                    { name: "Google Docs API",        desc: "문서 편집" },
-                    { name: "Tasks API",              desc: "할일 목록 관리" },
+                    { name: "Gmail API",           desc: "이메일 읽기/쓰기",    done: true },
+                    { name: "Google Drive API",     desc: "드라이브 파일 관리" },
+                    { name: "Google Calendar API",  desc: "캘린더 일정 관리" },
+                    { name: "Google Sheets API",    desc: "스프레드시트 편집" },
+                    { name: "Google Docs API",      desc: "문서 편집" },
+                    { name: "Tasks API",            desc: "할일 목록 관리" },
                   ].map((api) => (
                     <div key={api.name} className="flex items-center justify-between px-3 py-2">
                       <div className="flex items-center gap-2 min-w-0">
@@ -302,7 +356,7 @@ export default function ConsoleSetupPage() {
         <Alert>
           <Info className="size-4" />
           <AlertDescription className="text-xs">
-            앱이 Google 계정 데이터에 접근할 때 사용자에게 보여주는 동의 화면을 설정합니다.
+            앱이 Google 계정 데이터에 접근할 때 보여주는 동의 화면을 설정합니다.
             개인 Google 계정은 <strong>External(외부)</strong>을 선택해야 합니다.
           </AlertDescription>
         </Alert>
