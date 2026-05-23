@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Badge } from "@/components/ui/badge"
@@ -90,6 +91,7 @@ function OpenBtn({ href, label }: { href: string; label?: string }) {
 export default function ConsoleSetupPage() {
   const { defaultAccount } = useAccounts()
   const projectId = defaultAccount?.projectId || "my-gws-project"
+  const [cliProjectId, setCliProjectId] = useState(projectId)
 
   return (
     <article className="space-y-10">
@@ -219,15 +221,26 @@ export default function ConsoleSetupPage() {
 
                   <MiniStep n={2}>
                     <p className="text-sm font-medium">프로젝트 생성</p>
+                    <div className="space-y-2">
+                      <label className="text-xs font-semibold text-muted-foreground">프로젝트 ID 입력</label>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="text"
+                          value={cliProjectId}
+                          onChange={(e) =>
+                            setCliProjectId(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ""))
+                          }
+                          placeholder="my-gws-project"
+                          className="flex-1 rounded-md border border-input bg-background px-3 py-1.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-ring"
+                        />
+                        <span className="text-xs text-muted-foreground shrink-0">소문자·숫자·하이픈</span>
+                      </div>
+                    </div>
                     <CodeBlock
-                      code={`gcloud projects create ${projectId} --name="GWS CLI"\ngcloud config set project ${projectId}`}
+                      code={`gcloud projects create ${cliProjectId} --name="GWS CLI"\ngcloud config set project ${cliProjectId}`}
                       lang="bash"
                       filename="터미널에 순서대로 실행"
                     />
-                    <p className="text-xs text-muted-foreground">
-                      <code className="rounded bg-muted px-1">{projectId}</code>는 소문자·숫자·하이픈만 가능합니다.
-                      홈에서 이메일을 입력하면 자동으로 채워집니다.
-                    </p>
                   </MiniStep>
                 </div>
 
