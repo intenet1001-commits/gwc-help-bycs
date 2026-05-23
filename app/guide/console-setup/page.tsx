@@ -156,7 +156,7 @@ export default function ConsoleSetupPage() {
                 </div>
 
                 <ScreenshotPlaceholder
-                  src="/screenshots/01-project-create.png"
+                  src="/screenshots/01-project-create.svg"
                   alt="GCP 프로젝트 생성 페이지"
                   caption="이런 화면이 나타납니다"
                   priority
@@ -372,9 +372,9 @@ export default function ConsoleSetupPage() {
             </div>
 
             <ScreenshotPlaceholder
-              src="/screenshots/03-oauth-audience.png"
-              alt="OAuth 동의 화면 관리 페이지"
-              caption="GCP OAuth 동의 화면 관리 메뉴 (왼쪽 메뉴에서 '대상' 클릭하면 이 페이지가 열립니다)"
+              src="/screenshots/03-oauth-consent.svg"
+              alt="OAuth 동의 화면 — External 선택"
+              caption="External(외부)을 선택하고 만들기 버튼을 클릭하세요"
             />
 
             <div className="rounded-lg border border-blue-200 bg-blue-50 dark:bg-blue-950/20 px-4 py-3 text-xs text-blue-800 dark:text-blue-300 space-y-1">
@@ -420,6 +420,11 @@ export default function ConsoleSetupPage() {
                   </div>
                 </div>
                 <ClickHere>입력 완료 후 → "저장 후 계속" 클릭</ClickHere>
+                <ScreenshotPlaceholder
+                  src="/screenshots/03d-app-info-form.svg"
+                  alt="앱 정보 입력 폼 — ①앱 이름 ②지원 이메일 ③개발자 연락처"
+                  caption="①②③ 입력 후 저장 후 계속 클릭"
+                />
               </MiniStep>
 
               <MiniStep n={3}>
@@ -473,9 +478,9 @@ export default function ConsoleSetupPage() {
             </div>
 
             <ScreenshotPlaceholder
-              src="/screenshots/04-credentials.png"
-              alt="클라이언트 목록 페이지 — 상단에 '+ 클라이언트 만들기' 버튼이 있습니다"
-              caption="클라이언트 목록 페이지 — 상단 '+ 클라이언트 만들기' 버튼을 찾으세요"
+              src="/screenshots/04-credentials.svg"
+              alt="OAuth 클라이언트 ID 드롭다운 메뉴"
+              caption="+ 클라이언트 만들기 클릭 → OAuth 클라이언트 ID 선택"
             />
 
             <div className="space-y-5">
@@ -527,6 +532,11 @@ export default function ConsoleSetupPage() {
                   을 선택합니다
                 </p>
                 <ClickHere>반드시 "데스크톱 앱" 선택 — 이게 핵심!</ClickHere>
+                <ScreenshotPlaceholder
+                  src="/screenshots/05-oauth-client-type.svg"
+                  alt="애플리케이션 유형 선택 — 데스크톱 앱 강조"
+                  caption="드롭다운에서 데스크톱 앱 선택 (웹 애플리케이션 선택하면 안 됨)"
+                />
 
                 {/* 시각적 선택 안내 */}
                 <div className="rounded-lg border-2 border-dashed border-muted p-4 space-y-2 text-sm">
@@ -593,6 +603,11 @@ export default function ConsoleSetupPage() {
                   팝업 하단의 <strong>JSON 다운로드</strong> 버튼을 클릭합니다
                 </p>
                 <ClickHere>팝업 하단 "JSON 다운로드" 버튼 클릭</ClickHere>
+                <ScreenshotPlaceholder
+                  src="/screenshots/06-download-json.svg"
+                  alt="OAuth 클라이언트 생성 완료 팝업 — JSON 다운로드 버튼"
+                  caption="만들기 클릭 후 나타나는 팝업 — 초록색 DOWNLOAD JSON 버튼 클릭"
+                />
                 {/* 팝업 구조 시각적 안내 */}
                 <div className="rounded-lg border-2 border-dashed border-muted overflow-hidden text-xs">
                   <div className="bg-muted/50 px-4 py-2 font-semibold text-muted-foreground border-b">
