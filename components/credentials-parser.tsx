@@ -146,15 +146,18 @@ export function CredentialsParser() {
     })
   }
 
-  const handleCopyAllAsEnv = () => {
+  const handleCopyAllAsEnv = async () => {
     if (!result) return
     const lines = Object.entries(result.data)
       .filter(([, v]) => !Array.isArray(v))
       .map(([k, v]) => `${k.toUpperCase()}=${v}`)
       .join("\n")
-    navigator.clipboard.writeText(lines).then(() => {
+    try {
+      await navigator.clipboard.writeText(lines)
       toast.success(".env 형식으로 복사되었습니다!")
-    })
+    } catch {
+      toast.error("복사 실패. 텍스트를 직접 선택해 복사해 주세요.")
+    }
   }
 
   const displayValue = (field: string, value: string | string[]) => {
