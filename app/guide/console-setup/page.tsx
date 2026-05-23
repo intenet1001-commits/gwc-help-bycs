@@ -103,8 +103,8 @@ export default function ConsoleSetupPage() {
         </div>
         <h1 className="text-2xl font-bold">GCP 콘솔 완전 초보 가이드</h1>
         <p className="text-muted-foreground text-sm leading-relaxed">
-          GCP 프로젝트 생성부터 OAuth 크리덴셜 다운로드까지 단계별 스크린샷으로 안내합니다.
-          각 단계마다 <span className="text-red-600 font-medium">빨간 원</span>으로 클릭 위치를 표시했습니다.
+          GCP 프로젝트 생성부터 OAuth 크리덴셜 다운로드까지 단계별로 안내합니다.
+          실제 GCP 화면 스크린샷과 함께 클릭할 위치를 정확히 알려드립니다.
         </p>
       </header>
 
@@ -373,95 +373,84 @@ export default function ConsoleSetupPage() {
 
             <ScreenshotPlaceholder
               src="/screenshots/03-oauth-audience.png"
-              alt="OAuth 동의 화면 User Type 선택"
-              caption="User Type 선택 화면 — External을 선택해야 합니다"
+              alt="OAuth 동의 화면 관리 페이지"
+              caption="GCP OAuth 동의 화면 관리 메뉴 (왼쪽 메뉴에서 '대상' 클릭하면 이 페이지가 열립니다)"
             />
+
+            <div className="rounded-lg border border-blue-200 bg-blue-50 dark:bg-blue-950/20 px-4 py-3 text-xs text-blue-800 dark:text-blue-300 space-y-1">
+              <p className="font-semibold">📋 처음 설정하는 경우</p>
+              <p>위 링크를 클릭하면 <strong>앱 유형 선택 마법사</strong>가 바로 시작됩니다. 아래 순서대로 따라하세요.</p>
+            </div>
 
             <div className="space-y-5">
               <MiniStep n={1}>
                 <p className="text-sm font-medium">
-                  <strong className="text-red-600">External</strong> (외부) 를 선택합니다
+                  <strong className="text-red-600">External</strong> (외부) 라디오 버튼을 선택합니다
                 </p>
                 <Warn>
                   Internal은 Google Workspace 기업 계정 전용입니다.
                   개인 Gmail 계정은 반드시 <strong>External</strong> 선택!
                 </Warn>
-                <ClickHere>"External" 라디오 버튼 클릭</ClickHere>
-                <ScreenshotPlaceholder
-                  src="/screenshots/03b-external-highlight.png"
-                  alt="External 선택 강조"
-                  caption='"External" 클릭 (빨간 원)'
-                />
+                <ClickHere>"External" 라디오 버튼 클릭 → 파란 "만들기" 버튼 클릭</ClickHere>
+                <div className="rounded-lg border bg-muted/30 p-3 text-xs space-y-1.5">
+                  <p className="font-semibold text-muted-foreground">화면에서 찾는 법</p>
+                  <p>• 페이지 중앙에 <strong>User Type</strong> 섹션이 있습니다</p>
+                  <p>• <strong>○ Internal</strong> 과 <strong>○ External</strong> 두 개의 라디오 버튼이 보입니다</p>
+                  <p>• <strong>External</strong> 을 클릭하면 파란 <strong>만들기</strong> 버튼이 활성화됩니다</p>
+                </div>
               </MiniStep>
 
               <MiniStep n={2}>
-                <p className="text-sm font-medium">파란 <strong>만들기</strong> 버튼을 클릭합니다</p>
-                <ClickHere>"만들기" 버튼 클릭</ClickHere>
-                <ScreenshotPlaceholder
-                  src="/screenshots/03c-consent-create-btn.png"
-                  alt="만들기 버튼 강조"
-                  caption='"만들기" 클릭 후 앱 정보 입력 화면으로 이동'
-                />
-              </MiniStep>
-
-              <MiniStep n={3}>
-                <p className="text-sm font-medium">앱 정보를 입력합니다</p>
-                <ScreenshotPlaceholder
-                  src="/screenshots/03d-app-info-form.png"
-                  alt="앱 정보 입력 폼"
-                  caption="앱 정보 입력 화면"
-                />
+                <p className="text-sm font-medium">앱 정보 입력 폼에서 아래 항목을 입력합니다</p>
                 <div className="rounded-lg border divide-y text-xs overflow-hidden">
                   <div className="grid grid-cols-[140px_1fr] gap-2 px-3 py-2 bg-muted/40 font-semibold text-muted-foreground">
                     <span>입력 항목</span><span>입력값</span>
                   </div>
                   <div className="grid grid-cols-[140px_1fr] gap-2 px-3 py-2 items-center">
-                    <span className="font-medium">앱 이름 ①</span>
+                    <span className="font-medium">앱 이름 <span className="text-red-500">①</span></span>
                     <code className="rounded bg-muted px-1.5 py-0.5 font-mono">gws-cli</code>
                   </div>
                   <div className="grid grid-cols-[140px_1fr] gap-2 px-3 py-2 items-center">
-                    <span className="font-medium">사용자 지원 이메일 ②</span>
-                    <span className="text-muted-foreground">드롭다운에서 내 이메일 선택</span>
+                    <span className="font-medium">사용자 지원 이메일 <span className="text-red-500">②</span></span>
+                    <span className="text-muted-foreground">드롭다운에서 내 Gmail 선택</span>
                   </div>
                   <div className="grid grid-cols-[140px_1fr] gap-2 px-3 py-2 items-center">
-                    <span className="font-medium">개발자 연락처 ③</span>
-                    <span className="text-muted-foreground">내 이메일 직접 입력</span>
+                    <span className="font-medium">개발자 연락처 <span className="text-red-500">③</span></span>
+                    <span className="text-muted-foreground">내 Gmail 주소 직접 입력</span>
                   </div>
                 </div>
-                <ScreenshotPlaceholder
-                  src="/screenshots/03e-appname-highlight.png"
-                  alt="앱 이름 입력 필드 강조"
-                  caption="앱 이름 입력 필드 (빨간 원 ①번)"
-                />
+                <ClickHere>입력 완료 후 → "저장 후 계속" 클릭</ClickHere>
+              </MiniStep>
+
+              <MiniStep n={3}>
+                <p className="text-sm font-medium">
+                  <strong>저장 후 계속</strong> 버튼을 총 3번 클릭해서 마지막까지 넘어갑니다
+                </p>
+                <div className="rounded-lg border bg-muted/30 p-3 text-xs space-y-1.5">
+                  <p>• <strong>범위(Scopes) 페이지</strong>: 추가 설정 없이 "저장 후 계속" 클릭</p>
+                  <p>• <strong>테스트 사용자 페이지</strong>: <span className="font-semibold text-orange-700">반드시 내 이메일을 추가해야 합니다</span></p>
+                  <p>• <strong>요약 페이지</strong>: 내용 확인 후 "대시보드로 돌아가기" 클릭</p>
+                </div>
               </MiniStep>
 
               <MiniStep n={4}>
                 <p className="text-sm font-medium">
-                  <strong>저장 후 계속</strong> 버튼을 3번 클릭해서 마지막 단계까지 넘어갑니다
+                  테스트 사용자 페이지에서 <strong>+ ADD USERS</strong>를 클릭하고 내 Gmail을 입력합니다
                 </p>
-                <p className="text-xs text-muted-foreground">
-                  범위(Scopes) 페이지와 요약 페이지는 추가 입력 없이 바로 넘어가면 됩니다.
-                </p>
-              </MiniStep>
-
-              <MiniStep n={5}>
-                <p className="text-sm font-medium">
-                  테스트 사용자 단계에서 <strong>내 이메일</strong>을 추가합니다
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  <strong>+ ADD USERS</strong>를 클릭한 뒤 본인 Gmail 주소를 입력하고 저장하세요.
-                  이렇게 해야 로그인 시 "앱이 확인되지 않음" 경고를 무시하고 진행할 수 있습니다.
-                </p>
+                <Warn>
+                  이 단계를 건너뛰면 나중에 로그인할 때 "앱이 확인되지 않음" 오류가 발생합니다.
+                  반드시 본인 Gmail 주소를 추가하세요.
+                </Warn>
               </MiniStep>
             </div>
 
             <Success>
-              마지막 요약 화면에서 "대시보드로 돌아가기"를 클릭하면 Step 3 완료!
+              설정 완료 후 아래처럼 "사용자 유형: 외부" 가 표시되면 Step 3 완료!
             </Success>
             <ScreenshotPlaceholder
               src="/screenshots/03f-test-users-done.png"
-              alt="OAuth 동의 화면 완료 상태"
-              caption="동의 화면 설정 완료"
+              alt="OAuth 동의 화면 완료 상태 — 사용자 유형: 외부"
+              caption="설정 완료 후 화면 — '사용자 유형: 외부' 가 보이면 정상"
             />
           </CardContent>
         </Card>
@@ -485,33 +474,29 @@ export default function ConsoleSetupPage() {
 
             <ScreenshotPlaceholder
               src="/screenshots/04-credentials.png"
-              alt="사용자 인증 정보 페이지"
-              caption="사용자 인증 정보 페이지"
+              alt="클라이언트 목록 페이지 — 상단에 '+ 클라이언트 만들기' 버튼이 있습니다"
+              caption="클라이언트 목록 페이지 — 상단 '+ 클라이언트 만들기' 버튼을 찾으세요"
             />
 
             <div className="space-y-5">
               <MiniStep n={1}>
                 <p className="text-sm font-medium">
-                  상단의 <strong>+ 사용자 인증 정보 만들기</strong> 버튼을 클릭합니다
+                  상단의 <strong>+ 클라이언트 만들기</strong> 버튼을 클릭합니다
                 </p>
-                <ClickHere>"+ 사용자 인증 정보 만들기" 클릭</ClickHere>
-                <ScreenshotPlaceholder
-                  src="/screenshots/04b-create-btn-highlight.png"
-                  alt="사용자 인증 정보 만들기 버튼 강조"
-                  caption="이 버튼을 클릭하세요 (빨간 원)"
-                />
+                <ClickHere>상단 파란 "+ 클라이언트 만들기" 버튼 클릭</ClickHere>
               </MiniStep>
 
               <MiniStep n={2}>
                 <p className="text-sm font-medium">
-                  드롭다운에서 <strong>OAuth 클라이언트 ID</strong>를 선택합니다
+                  드롭다운 메뉴에서 <strong>OAuth 클라이언트 ID</strong>를 선택합니다
                 </p>
                 <ClickHere>"OAuth 클라이언트 ID" 선택</ClickHere>
-                <ScreenshotPlaceholder
-                  src="/screenshots/04c-oauth-menu-highlight.png"
-                  alt="OAuth 클라이언트 ID 메뉴 항목 강조"
-                  caption="드롭다운에서 이 항목 클릭 (빨간 원)"
-                />
+                <div className="rounded-lg border bg-muted/30 p-3 text-xs space-y-1">
+                  <p className="font-semibold text-muted-foreground">드롭다운에서 보이는 항목들</p>
+                  <p>• API 키</p>
+                  <p className="font-bold text-primary">• OAuth 클라이언트 ID  ← 이것 선택</p>
+                  <p>• 서비스 계정</p>
+                </div>
               </MiniStep>
             </div>
           </CardContent>
@@ -532,36 +517,58 @@ export default function ConsoleSetupPage() {
 
         <Card>
           <CardContent className="p-5 space-y-5">
-            <ScreenshotPlaceholder
-              src="/screenshots/05-client-type-form.png"
-              alt="애플리케이션 유형 선택 폼 전체"
-              caption="애플리케이션 유형 선택 화면"
-            />
-
             <div className="space-y-5">
               <MiniStep n={1}>
                 <p className="text-sm font-medium">
-                  애플리케이션 유형에서{" "}
+                  <strong>애플리케이션 유형</strong> 드롭다운에서{" "}
                   <span className="font-bold text-red-600 bg-red-50 dark:bg-red-950/30 px-1.5 py-0.5 rounded">
                     데스크톱 앱
                   </span>
                   을 선택합니다
                 </p>
                 <ClickHere>반드시 "데스크톱 앱" 선택 — 이게 핵심!</ClickHere>
-                <ScreenshotPlaceholder
-                  src="/screenshots/05b-desktop-app-highlight.png"
-                  alt="데스크톱 앱 선택 강조"
-                  caption='"데스크톱 앱" — 반드시 여기를 선택 (빨간 원)'
-                />
+
+                {/* 시각적 선택 안내 */}
+                <div className="rounded-lg border-2 border-dashed border-muted p-4 space-y-2 text-sm">
+                  <p className="text-xs text-muted-foreground font-semibold mb-3">화면에서 보이는 선택지 (예시)</p>
+                  <div className="space-y-2">
+                    {[
+                      { label: "웹 애플리케이션", warn: true },
+                      { label: "Android" },
+                      { label: "Chrome 앱" },
+                      { label: "iOS" },
+                      { label: "데스크톱 앱", selected: true },
+                      { label: "TVs and Limited Input" },
+                      { label: "Universal Windows Platform (UWP)" },
+                    ].map((opt) => (
+                      <div
+                        key={opt.label}
+                        className={`flex items-center gap-2 rounded px-2 py-1 text-xs ${
+                          opt.selected
+                            ? "bg-red-50 border border-red-300 font-bold text-red-700 dark:bg-red-950/30 dark:border-red-700 dark:text-red-400"
+                            : opt.warn
+                            ? "text-muted-foreground line-through"
+                            : "text-muted-foreground"
+                        }`}
+                      >
+                        <span className={`size-3 rounded-full border-2 flex-shrink-0 ${opt.selected ? "border-red-500 bg-red-500" : "border-muted-foreground"}`} />
+                        {opt.label}
+                        {opt.selected && <span className="ml-auto text-red-600 font-black">← 이것 선택!</span>}
+                        {opt.warn && <span className="ml-auto text-orange-500 no-underline not-italic font-normal">(선택하면 안 됨)</span>}
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </MiniStep>
 
               <MiniStep n={2}>
-                <p className="text-sm font-medium">이름을 입력하고 만들기를 클릭합니다</p>
+                <p className="text-sm font-medium">이름을 입력하고 <strong>만들기</strong> 버튼을 클릭합니다</p>
                 <div className="rounded-md border bg-muted/30 px-3 py-2 text-xs">
                   <span className="font-semibold">이름: </span>
                   <code className="rounded bg-muted px-1 font-mono">gws-desktop</code>
                   <span className="text-muted-foreground ml-2">(아무 이름이나 괜찮습니다)</span>
                 </div>
+                <ClickHere>"만들기" 버튼 클릭</ClickHere>
               </MiniStep>
             </div>
           </CardContent>
@@ -577,26 +584,39 @@ export default function ConsoleSetupPage() {
         <Card>
           <CardContent className="p-5 space-y-5">
             <p className="text-sm text-muted-foreground">
-              만들기를 클릭하면 팝업이 나타납니다. 여기서 JSON 파일을 다운로드합니다.
+              <strong>만들기</strong> 버튼을 클릭하면 클라이언트 생성 완료 팝업이 나타납니다.
             </p>
 
-            <ScreenshotPlaceholder
-              src="/screenshots/06-download-popup.png"
-              alt="OAuth 클라이언트 생성 완료 팝업"
-              caption="생성 완료 팝업 — JSON 다운로드 버튼이 보입니다"
-            />
-
-            <MiniStep n={1}>
-              <p className="text-sm font-medium">
-                팝업에서 <strong>JSON 다운로드</strong> 버튼을 클릭합니다
-              </p>
-              <ClickHere>"JSON 다운로드" 버튼 클릭</ClickHere>
-              <ScreenshotPlaceholder
-                src="/screenshots/06b-download-btn-highlight.png"
-                alt="JSON 다운로드 버튼 강조"
-                caption="이 버튼을 클릭하세요 (빨간 원)"
-              />
-            </MiniStep>
+            <div className="space-y-5">
+              <MiniStep n={1}>
+                <p className="text-sm font-medium">
+                  팝업 하단의 <strong>JSON 다운로드</strong> 버튼을 클릭합니다
+                </p>
+                <ClickHere>팝업 하단 "JSON 다운로드" 버튼 클릭</ClickHere>
+                {/* 팝업 구조 시각적 안내 */}
+                <div className="rounded-lg border-2 border-dashed border-muted overflow-hidden text-xs">
+                  <div className="bg-muted/50 px-4 py-2 font-semibold text-muted-foreground border-b">
+                    OAuth 클라이언트 생성됨 (팝업 창 예시)
+                  </div>
+                  <div className="p-4 space-y-3">
+                    <div className="space-y-1">
+                      <p className="text-muted-foreground">클라이언트 ID</p>
+                      <p className="font-mono bg-muted rounded px-2 py-1">XXXXXXXXXX.apps.googleusercontent.com</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-muted-foreground">클라이언트 보안 비밀번호</p>
+                      <p className="font-mono bg-muted rounded px-2 py-1">GOCSPX-XXXXXXXXXXXX</p>
+                    </div>
+                    <div className="flex gap-2 justify-end pt-2 border-t">
+                      <span className="rounded border px-3 py-1 text-muted-foreground">확인</span>
+                      <span className="rounded bg-blue-600 text-white px-3 py-1 font-semibold ring-2 ring-red-400">
+                        ↓ JSON 다운로드  ← 클릭!
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </MiniStep>
+            </div>
 
             <Success>
               <span>
@@ -605,7 +625,7 @@ export default function ConsoleSetupPage() {
                   client_secret_XXXX.json
                 </code>{" "}
                 파일이 저장됩니다.
-                파일명이 너무 길면{" "}
+                파일명이 길면{" "}
                 <code className="bg-green-100 dark:bg-green-900 px-1 rounded font-mono text-xs">
                   credentials.json
                 </code>
@@ -614,8 +634,8 @@ export default function ConsoleSetupPage() {
             </Success>
 
             <Warn>
-              팝업을 닫아버렸다면? 인증 정보 목록에서 방금 만든 항목 오른쪽의
-              다운로드 아이콘(↓)을 클릭하면 다시 받을 수 있습니다.
+              팝업을 닫아버렸다면? <strong>클라이언트 목록</strong> 페이지에서 방금 만든 항목
+              오른쪽의 <strong>다운로드 아이콘 (↓)</strong>을 클릭하면 다시 받을 수 있습니다.
             </Warn>
           </CardContent>
         </Card>
